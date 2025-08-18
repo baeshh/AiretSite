@@ -395,12 +395,16 @@
 
 .museum-label.hidden {
   opacity: 0;
-  transform: translateY(12px);
+  transform: translateY(16px);
 }
 
 .museum-label.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.letter-spacing-wide {
+  letter-spacing: 0.15em;
 }
 
 /* Mobile Responsive Adjustments */

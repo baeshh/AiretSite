@@ -169,8 +169,8 @@ export default function Hero() {
           museumLabelVisible ? 'visible' : 'hidden'
         }`}
       >
-        <div className="bg-white/95 backdrop-blur-sm px-4 py-3 shadow-lg border border-gray-200">
-          <p className="text-xs font-medium text-black tracking-wide uppercase">
+        <div className="bg-white/98 backdrop-blur-sm px-6 py-4 shadow-xl border border-gray-300 rounded-sm">
+          <p className="text-sm font-semibold text-black tracking-widest uppercase letter-spacing-wide">
             UV-C · AI Scheduling · Low-Noise
           </p>
         </div>
