@@ -1,0 +1,75 @@
+You are building the Home Hero section of the CES 2025 website for AIRET, a built-in luxury shoe care system. 
+This hero must deliver a striking, editorial, luxury impression within the first 5 seconds. 
+Design and implement the following with extreme precision, strictly in black & white. No colors, no gradients, no glow. 
+This sequence plays once on entry and then rests in a calm premium state. 
+Responsiveness and accessibility are mandatory.
+
+-----------------------------------------
+1) Initial Grab (0.0–0.9s)
+-----------------------------------------
+- Begin with full white screen.
+- Hard cut to IMG_6076 filling the entire viewport (100vw x 100vh).
+- Apply a cinematic Ken Burns effect: scale from 0.985 → 1.000 and pan ≤2% over ~900ms ease-out.
+- Immediately snap in a 1px black editorial frame around the viewport (top, left, right, bottom) within 200ms.
+- This must instantly signal “premium magazine cover.”
+
+-----------------------------------------
+2) Showcase Unveil (0.9–2.2s)
+-----------------------------------------
+- Overlay 2 or 3 semi-transparent white “glass panels” at ~20–25% opacity. 
+- Panels should be perfectly rectangular, aligned to the viewport, slightly tilted at 3–5° (CSS 3D transform).
+- Animate panels sliding outward horizontally (x ±35–40%) with staggered timing (120ms offset).
+- Total duration 700–900ms ease-out.
+- While opening, add a 1–2px vertical specular line sweep at the center seam. Expand to ~6px and fade within 350–400ms.
+- Subtle inner edge shadow on panels increases as they rotate outward.
+- No blur, no glow, no color.
+
+-----------------------------------------
+3) Copy Reveal (2.2–4.8s)
+-----------------------------------------
+- Headline: “Built-in Luxury Shoe Care System”
+  - Typeface: Playfair or similar high-end serif, bold, left-aligned.
+  - Reveal words in 2–3 groups (not one by one) with 12–16px upward motion + opacity trail (120–160ms).
+  - Stagger groups by 60–80ms.
+- Subtext: “Museum-quality display meets AI-powered maintenance for the modern luxury home.”
+  - Typeface: Noto Sans, weight 400, gray #6B7280, 17px.
+  - Fade in 200ms after headline completes.
+- CTAs (below subtext, 24–32px rhythm maintained):
+  - Primary button: black background, white text. Hover → opacity 90%.
+  - Secondary button: white background, 1px black border. Hover → invert (black bg, white text).
+- During this stage, apply a dolly-in illusion on the hero image: scale 0.98 → 1.00 over 900–1200ms, with slight contrast lift (+3–5%) then return.
+
+-----------------------------------------
+4) Settle and Hand-off (4.8–5.0s+)
+-----------------------------------------
+- After all text and CTAs appear, pause in a calm rest state for ~300ms before enabling scroll.
+- Hero height must remain 90–100vh with at least 120px safe space below the navbar.
+- Insert a clean 1px divider line between hero and Innovation section.
+- Hero content must feel like an editorial cover, crisp, minimal, luxurious.
+
+-----------------------------------------
+5) Accessibility & Performance
+-----------------------------------------
+- If user prefers-reduced-motion:
+  - Skip panel slides, Ken Burns, and dolly-in. 
+  - Replace with simple crossfade: white → IMG_6076, then fade-in text.
+- All animations must run at 60fps. Use GPU-friendly transforms (translate, scale, opacity).
+- Clamp or disable effects if FPS <45 for 2s or when tab is inactive.
+- Animation plays once only. Never loop.
+
+-----------------------------------------
+6) Global Rules
+-----------------------------------------
+- Strictly black & white. Absolutely no accent colors, gradients, glows, or blur.
+- Headline/subtext/CTAs must remain left-aligned, stacked with 24–32px vertical rhythm.
+- Hero must look like a luxury magazine cover or high-end showroom opening.
+- Copy and buttons must never overlap navbar; maintain ≥120px padding from top.
+
+-----------------------------------------
+Acceptance Criteria
+-----------------------------------------
+- At 0.5s, hero already signals luxury through framing and crisp imagery.
+- At 2.0s, glass panels slide out smoothly, specular sweep adds tactile realism.
+- At 4.8s, headline, subtext, and CTAs are fully visible and sharply settled.
+- Final state feels premium, editorial, calm. 
+- Experience is cinematic, monochrome, and futuristic, aligned with CES luxury innovation.

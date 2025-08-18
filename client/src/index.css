@@ -271,6 +271,217 @@
   background-color: #000000;
 }
 
+/* ===== CES 2025 LUXURY SEQUENCE - BLACK & WHITE ONLY ===== */
+
+/* Editorial Magazine Frame */
+.editorial-frame {
+  border: 1px solid #000000;
+  animation: editorial-frame-in 200ms ease-out forwards;
+}
+
+@keyframes editorial-frame-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Ken Burns Cinematic Effect */
+.ken-burns-ces {
+  animation: ken-burns-cinematic 900ms ease-out forwards;
+}
+
+@keyframes ken-burns-cinematic {
+  from {
+    transform: scale(0.985) translateX(-1%);
+  }
+  to {
+    transform: scale(1.000) translateX(1%);
+  }
+}
+
+/* Dolly-In Illusion */
+.dolly-in-ces {
+  animation: dolly-in-effect 1200ms ease-out forwards;
+  filter: contrast(1.0);
+}
+
+@keyframes dolly-in-effect {
+  from {
+    transform: scale(0.98);
+    filter: contrast(1.0);
+  }
+  50% {
+    filter: contrast(1.04);
+  }
+  to {
+    transform: scale(1.00);
+    filter: contrast(1.0);
+  }
+}
+
+/* Glass Showcase Panels */
+.glass-showcase {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.05);
+  z-index: 11;
+  transform-style: preserve-3d;
+  transition: all 800ms ease-out;
+}
+
+.glass-showcase-left {
+  left: 0;
+  width: 35vw;
+  transform: perspective(2000px) rotateY(-4deg) rotateX(1deg);
+}
+
+.glass-showcase-right {
+  right: 0;
+  width: 35vw;
+  transform: perspective(2000px) rotateY(4deg) rotateX(-1deg);
+}
+
+.glass-showcase-center {
+  left: 30vw;
+  width: 40vw;
+  transform: perspective(2000px) rotateY(-2deg) rotateX(2deg);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.glass-showcase.animated {
+  opacity: 0;
+}
+
+.glass-showcase-left.animated {
+  transform: perspective(2000px) rotateY(-4deg) rotateX(1deg) translateX(-40vw);
+}
+
+.glass-showcase-right.animated {
+  transform: perspective(2000px) rotateY(4deg) rotateX(-1deg) translateX(40vw);
+  transition-delay: 120ms;
+}
+
+.glass-showcase-center.animated {
+  transform: perspective(2000px) rotateY(-2deg) rotateX(2deg) translateX(-35vw);
+  transition-delay: 240ms;
+}
+
+/* Specular Sweep CES */
+.specular-sweep-ces {
+  background: linear-gradient(90deg, transparent 0%, transparent 48%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0.6) 52%, transparent 54%, transparent 100%);
+  animation: specular-sweep-expand 400ms ease-out forwards;
+  animation-delay: 200ms;
+  opacity: 0;
+}
+
+@keyframes specular-sweep-expand {
+  0% {
+    opacity: 0;
+    background-size: 1px 100%;
+    background-position: center;
+  }
+  50% {
+    opacity: 1;
+    background-size: 6px 100%;
+    background-position: center;
+  }
+  100% {
+    opacity: 0;
+    background-size: 6px 100%;
+    background-position: center;
+  }
+}
+
+/* Headline Group Reveals */
+.headline-group-1,
+.headline-group-2 {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: all 160ms ease-out;
+}
+
+.headline-group-1.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.headline-group-2.revealed {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 80ms;
+}
+
+/* Editorial Copy */
+.ces-subtext {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: all 200ms ease-out;
+}
+
+.ces-subtext.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ces-ctas {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: all 240ms ease-out;
+}
+
+.ces-ctas.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* CES Button Styles */
+.ces-btn-primary {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+.ces-btn-primary:hover {
+  opacity: 0.9 !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+.ces-btn-secondary {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #000000 !important;
+}
+
+.ces-btn-secondary:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #000000 !important;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .glass-showcase-left,
+  .glass-showcase-right,
+  .glass-showcase-center {
+    transform: perspective(1500px) rotateY(0deg) rotateX(0deg);
+  }
+  
+  .glass-showcase-left.animated {
+    transform: perspective(1500px) rotateY(0deg) rotateX(0deg) translateX(-25vw);
+  }
+  
+  .glass-showcase-right.animated {
+    transform: perspective(1500px) rotateY(0deg) rotateX(0deg) translateX(25vw);
+  }
+  
+  .glass-showcase-center.animated {
+    transform: perspective(1500px) rotateY(0deg) rotateX(0deg) translateX(-20vw);
+  }
+}
+
 /* ===== SCROLL-DRIVEN LUXURY REVEAL - BLACK & WHITE ONLY ===== */
 
 /* Scroll-Driven Ken Burns */
@@ -493,32 +704,24 @@
 
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
-  .hero-reduced-motion .ken-burns-active,
-  .hero-reduced-motion .ken-burns-static {
-    transform: none !important;
+  .hero-reduced-motion .ken-burns-ces,
+  .hero-reduced-motion .dolly-in-ces {
     animation: none !important;
-    transition: opacity 800ms ease-out !important;
+    transform: none !important;
   }
   
-  .hero-reduced-motion .kinetic-word-cinema,
-  .hero-reduced-motion .kinetic-text-cinema,
-  .hero-reduced-motion .kinetic-buttons-cinema {
+  .hero-reduced-motion .glass-showcase,
+  .hero-reduced-motion .specular-sweep-ces {
+    display: none !important;
+  }
+  
+  .hero-reduced-motion .headline-group-1,
+  .hero-reduced-motion .headline-group-2,
+  .hero-reduced-motion .ces-subtext,
+  .hero-reduced-motion .ces-ctas {
     opacity: 1 !important;
     transform: none !important;
-    filter: none !important;
-    animation: none !important;
-  }
-  
-  .hero-reduced-motion .specular-sweep-horizontal {
-    display: none !important;
-  }
-  
-  .hero-reduced-motion .closing-panel {
-    display: none !important;
-  }
-  
-  .hero-reduced-motion .scroll-ken-burns {
-    transform: none !important;
+    transition: none !important;
   }
 }
 
