@@ -271,6 +271,194 @@
   background-color: #000000;
 }
 
+/* ===== LUXURY CINEMATIC INTRO - BLACK & WHITE ONLY ===== */
+
+/* Ken Burns Effect */
+.ken-burns-static {
+  transform: scale(0.98);
+  transition: transform 0ms ease-out;
+}
+
+.ken-burns-active {
+  transform: scale(1.00) translateX(2%);
+  transition: transform 1400ms ease-out;
+  animation: kenBurnsPan 1400ms ease-out forwards;
+}
+
+@keyframes kenBurnsPan {
+  0% {
+    transform: scale(0.98) translateX(0%);
+  }
+  100% {
+    transform: scale(1.00) translateX(2%);
+  }
+}
+
+/* Copy Reveal States */
+.copy-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.copy-revealed {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Kinetic Word Animation for Cinema */
+@keyframes kineticWordCinema {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(0.8px);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(-1px);
+    filter: blur(0.3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.kinetic-word-cinema {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(0.8px);
+}
+
+.copy-revealed .kinetic-word-cinema {
+  animation: kineticWordCinema 160ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Kinetic Text and Buttons */
+.kinetic-text-cinema {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.copy-revealed .kinetic-text-cinema {
+  animation: kineticWordCinema 180ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.kinetic-buttons-cinema {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.kinetic-buttons-cinema.revealed {
+  animation: kineticWordCinema 150ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Specular Sweep Horizontal */
+@keyframes specularSweepHorizontal {
+  0% {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 100%
+    );
+  }
+  20% {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.4) 20%,
+      rgba(255, 255, 255, 0.2) 22%,
+      transparent 100%
+    );
+  }
+  100% {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 98%,
+      rgba(255, 255, 255, 0.4) 99%,
+      rgba(255, 255, 255, 0.2) 100%
+    );
+  }
+}
+
+.specular-sweep-horizontal {
+  animation: specularSweepHorizontal 400ms ease-out forwards;
+  animation-delay: 300ms;
+}
+
+/* Museum Label */
+.museum-label {
+  transition: all 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.museum-label.hidden {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.museum-label.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  .ken-burns-active {
+    transform: scale(1.00) translateX(1%);
+  }
+  
+  @keyframes kenBurnsPan {
+    0% {
+      transform: scale(0.985) translateX(0%);
+    }
+    100% {
+      transform: scale(1.00) translateX(1%);
+    }
+  }
+  
+  .kinetic-word-cinema {
+    animation-duration: 120ms;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .hero-reduced-motion .ken-burns-active,
+  .hero-reduced-motion .ken-burns-static {
+    transform: none !important;
+    animation: none !important;
+    transition: opacity 1000ms ease-out !important;
+  }
+  
+  .hero-reduced-motion .kinetic-word-cinema,
+  .hero-reduced-motion .kinetic-text-cinema,
+  .hero-reduced-motion .kinetic-buttons-cinema {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    animation: none !important;
+  }
+  
+  .hero-reduced-motion .specular-sweep-horizontal {
+    display: none !important;
+  }
+  
+  .hero-reduced-motion .museum-label.visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: opacity 300ms ease-out !important;
+  }
+}
+
+/* Performance Optimizations */
+.ken-burns-active,
+.ken-burns-static {
+  will-change: transform;
+  contain: layout style paint;
+}
+
 /* ===== FULL-BLEED DOOR TAKEOVER - BLACK & WHITE ONLY ===== */
 
 /* Viewport Door Animation */

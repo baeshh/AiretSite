@@ -1,0 +1,60 @@
+HOME HERO — LUXURY CINEMATIC INTRO (B/W ONLY)
+
+Scope
+Apply to the Home hero (first fold) only, once on entry. Do not affect the next sections.
+
+1) Cinematic Ken Burns Takeover
+
+On entry, show IMG_6076 full-bleed (100vw × 100vh).
+
+Run a slow, premium Ken Burns: scale 0.98 → 1.00 with a 2–4% pan (choose a direction that favors composition), over 1.2–1.6s, ease-out.
+
+Keep strict black & white; no gradients, no color, no glow.
+
+After ~900ms, begin revealing the copy (headline → sub → CTAs).
+
+2) Kinetic Copy Reveal + Specular Sweep
+
+Headline reveal: 12–16px upward motion with a 120–160ms opacity micro-trail, then snap razor-sharp.
+
+Stagger headline words by 60–80ms; subtext and CTAs follow 120–160ms later.
+
+Run one specular sweep across the headline: a 1–2px vertical white line glides left→right in ~400ms, max opacity ≤40%, then disappears.
+
+Maintain left alignment and 24–32px vertical rhythm. No center-aligned hero copy.
+
+(Optional) Pinned Museum Label — very light
+
+Pin the hero for the first 60–70vh of scroll.
+
+Introduce a small white label card at the lower-left with a 12px slide-up + fade (300ms) carrying a one-line spec (e.g., “UV-C · AI Scheduling · Low-Noise”).
+
+Unpin after the label settles; insert a clean 1px divider before the next section.
+
+Navbar & Safe Area
+
+Solid white navbar over hero; hero content starts ≥120px below it (no collision).
+
+Hero height 90–100vh; below sections remain hidden until intro finishes.
+
+Responsiveness
+
+Desktop: hero remains full-bleed during intro, then rests; text stays left-aligned.
+
+Tablet/Mobile: reduce motion amplitude (scale 0.985 → 1.00, pan ≤2%). Maintain generous top padding.
+
+Performance & A11y
+
+60fps feel; GPU transforms only.
+
+If prefers-reduced-motion: crossfade background and fade in copy (no pan/scale/sweep).
+
+Sequence plays once and rests calmly (no loop).
+
+Acceptance Criteria
+
+First impression feels cinematic, editorial, luxury with zero gimmicks.
+
+Background subtly moves; headline briefly “catches light,” then sits perfectly sharp.
+
+No color usage; no overlap with navbar; clean hand-off to the next section.
