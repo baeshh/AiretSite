@@ -1,82 +1,55 @@
 import { Button } from "@/components/ui/button";
-import heroImage from "@assets/IMG_6076_1755522864402.png";
+import HeroDoorMask from "./HeroDoorMask";
 
 export default function Hero() {
   return (
-    <section className="bg-white pt-32 pb-0 min-h-screen flex items-center relative overflow-hidden">
-      {/* Section Divider */}
-      <div className="section-divider absolute top-0"></div>
+    <section className="bg-white relative min-h-[90vh] lg:min-h-[100vh] flex items-center pt-[120px]">
       
-      <div className="max-w-container mx-auto px-6 lg:px-8 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center min-h-[calc(100vh-8rem)]">
+      <div className="max-w-[1120px] mx-auto px-6 md:px-8 w-full">
+        
+        {/* Hero Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           
-          {/* Left Column - Content (45% width with generous whitespace) */}
-          <div className="space-y-16 fade-in-up lg:max-w-lg">
-            <div className="space-y-12">
-              <h1 className="font-playfair text-6xl lg:text-7xl font-bold tracking-tighter leading-none text-left">
-                Built-in Luxury Shoe Care System
+          {/* Left Column - Content (editorial magazine layout) */}
+          <div className="space-y-8 lg:space-y-12">
+            
+            {/* Main Headline - Editorial Style */}
+            <div className="space-y-6">
+              <h1 className="font-playfair text-5xl lg:text-6xl font-bold tracking-tighter leading-tight text-black slide-in-left">
+                Built-in Luxury 
+                <br />
+                Shoe Care System
               </h1>
-              <div className="editorial-quote text-xl">
-                Museum-grade Display meets Smart Care.
-              </div>
+              
+              {/* Editorial Subtext */}
+              <p className="text-[#6B7280] text-[17px] leading-relaxed font-light slide-in-left max-w-md" style={{ animationDelay: '0.2s' }}>
+                Museum-quality display meets AI-powered maintenance for the modern luxury home.
+              </p>
             </div>
             
-            <div className="flex flex-col gap-6 max-w-sm">
+            {/* Call-to-Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 slide-in-left" style={{ animationDelay: '0.4s' }}>
               <Button 
                 size="lg" 
-                className="btn-primary px-10 py-4 text-lg font-medium tracking-wide"
-                data-testid="button-book-ces-demo"
+                className="bg-black text-white hover:opacity-90 px-8 py-4 font-medium transition-opacity duration-300"
+                data-testid="button-cta-primary"
               >
-                Book a Demo at CES
+                View Product Details
               </Button>
               <Button 
                 variant="outline" 
-                size="lg"
-                className="btn-secondary px-10 py-4 text-lg font-medium tracking-wide"
-                data-testid="button-download-sheet"
+                size="lg" 
+                className="bg-white border-black text-black hover:bg-black hover:text-white px-8 py-4 font-medium transition-all duration-300"
+                data-testid="button-cta-secondary"
               >
-                Download Product Sheet
+                Schedule Demo
               </Button>
-            </div>
-            
-            <div className="pt-16 space-y-6">
-              <div className="text-xs uppercase tracking-wider font-medium text-muted-foreground">
-                Core Features
-              </div>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3 text-sm font-light">
-                  <div className="w-1 h-1 bg-black rounded-full"></div>
-                  <span>AI Scheduling</span>
-                </div>
-                <div className="flex items-center space-x-3 text-sm font-light">
-                  <div className="w-1 h-1 bg-black rounded-full"></div>
-                  <span>UV-C Sanitization</span>
-                </div>
-                <div className="flex items-center space-x-3 text-sm font-light">
-                  <div className="w-1 h-1 bg-black rounded-full"></div>
-                  <span>Museum Display</span>
-                </div>
-              </div>
             </div>
           </div>
           
-          {/* Right Column - Product Image (cinematic showcase) */}
-          <div className="slide-in-right">
-            <div className="relative">
-              <img 
-                src={heroImage} 
-                alt="AIRET luxury built-in shoe care system front view" 
-                className="w-full h-auto shadow-[0_20px_80px_rgba(0,0,0,0.12)] product-hover-zoom"
-                data-testid="img-hero-product"
-                onLoad={() => console.log('Hero image loaded successfully')}
-                onError={(e) => {
-                  console.error('Failed to load hero image:', e);
-                  // Fallback to placeholder if image fails to load
-                  const target = e.target as HTMLImageElement;
-                  target.src = "https://images.unsplash.com/photo-1556906781-9a412961c28c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=1000";
-                }}
-              />
-            </div>
+          {/* Right Column - Product Image with Door Mask Effect */}
+          <div className="lg:w-[45%] lg:ml-auto">
+            <HeroDoorMask className="slide-in-right" />
           </div>
         </div>
       </div>

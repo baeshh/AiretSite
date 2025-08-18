@@ -168,6 +168,17 @@
   }
 }
 
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -179,12 +190,38 @@
   }
 }
 
+.slide-in-left {
+  animation: slideInLeft 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
 .slide-in-right {
   animation: slideInFromRight 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateX(50px);
 }
 
 .fade-in-up {
   animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.product-hover-zoom {
+  transition: transform 0.4s ease-out;
+}
+
+.product-hover-zoom:hover {
+  transform: scale(1.02);
+}
+
+/* Door Mask Animation Support */
+@supports (mask-image: linear-gradient(black, black)) or (-webkit-mask-image: linear-gradient(black, black)) {
+  .door-mask-supported {
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: cover;
+    -webkit-mask-size: cover;
+  }
 }
 
 /* Button luxury interactions */
