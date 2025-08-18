@@ -48,7 +48,7 @@ export default function Hero() {
           </div>
           
           {/* Right Column - Product Image with Door Mask Effect */}
-          <div className="lg:w-[45%] lg:ml-auto">
+          <div className="lg:w-[55%] lg:ml-auto">
             <HeroDoorMask className="slide-in-right" />
           </div>
         </div>

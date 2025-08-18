@@ -97,12 +97,7 @@ export default function HeroDoorMask({ className = "" }: HeroDoorMaskProps) {
         }}
       />
       
-      {/* Debug indicator (remove in production) */}
-      {process.env.NODE_ENV === 'development' && (
-        <div className="absolute top-4 left-4 bg-black/80 text-white px-2 py-1 text-xs font-mono">
-          Door: {Math.round(doorProgress * 100)}%
-        </div>
-      )}
+
     </div>
   );
 }
