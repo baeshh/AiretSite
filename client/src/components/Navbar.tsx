@@ -27,8 +27,10 @@ export default function Navbar() {
 
   return (
     <nav 
-      className={`sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border transition-all duration-300 ${
-        isScrolled ? "shadow-sm" : ""
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled 
+          ? "bg-white/95 backdrop-blur-sm border-b border-border shadow-sm" 
+          : "bg-transparent"
       }`}
     >
       <div className="max-w-container mx-auto px-6 lg:px-8">
@@ -37,7 +39,7 @@ export default function Navbar() {
           <div className="flex-shrink-0">
             <Link 
               href="/" 
-              className="text-2xl font-playfair font-bold tracking-tight hover:opacity-70 transition-opacity"
+              className="text-2xl font-playfair font-bold tracking-tighter hover:opacity-70 transition-opacity"
               data-testid="nav-logo"
             >
               AIRET
@@ -65,7 +67,7 @@ export default function Navbar() {
           {/* CTA Button */}
           <div className="hidden md:block">
             <Button 
-              className="bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+              className="btn-primary hover:opacity-90 px-6 py-2 font-medium tracking-wide"
               data-testid="button-book-demo"
             >
               Book CES Demo

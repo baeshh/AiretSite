@@ -58,36 +58,39 @@ export default function Contact() {
   };
 
   return (
-    <section className="bg-black py-section-lg">
+    <section className="bg-white py-24 lg:py-32 relative">
+      {/* Section Divider */}
+      <div className="section-divider absolute top-0"></div>
+      
       <div className="max-w-container mx-auto px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           
           {/* Contact Info */}
-          <div className="text-white space-y-8">
+          <div className="text-black space-y-12">
             <div>
-              <h2 className="font-playfair text-4xl lg:text-5xl font-semibold mb-6">
+              <h2 className="font-playfair text-5xl lg:text-6xl font-bold mb-8 tracking-tighter leading-tight">
                 Experience AIRET at CES 2025
               </h2>
-              <p className="text-body text-gray-300 leading-relaxed">
+              <div className="editorial-quote">
                 Schedule a private demonstration of our built-in luxury shoe care system. 
                 See museum-quality display technology and AI-powered maintenance in action.
-              </p>
+              </div>
             </div>
             
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div className="flex items-center space-x-4">
-                <MapPin className="text-gray-400 w-5 h-5" />
-                <span className="text-gray-300">Las Vegas Convention Center</span>
+                <div className="w-1 h-1 bg-black rounded-full"></div>
+                <span className="text-gray-600 font-light">Las Vegas Convention Center</span>
               </div>
               <div className="flex items-center space-x-4">
-                <Calendar className="text-gray-400 w-5 h-5" />
-                <span className="text-gray-300">January 7-10, 2025</span>
+                <div className="w-1 h-1 bg-black rounded-full"></div>
+                <span className="text-gray-600 font-light">January 7-10, 2025</span>
               </div>
               <div className="flex items-center space-x-4">
-                <Download className="text-gray-400 w-5 h-5" />
+                <div className="w-1 h-1 bg-black rounded-full"></div>
                 <a 
                   href="/pdf/one-pager.pdf" 
-                  className="text-gray-300 hover:text-white transition-colors underline"
+                  className="text-gray-600 hover:text-black transition-colors font-light"
                   data-testid="link-download-sheet"
                 >
                   Download Product Sheet
@@ -97,11 +100,11 @@ export default function Contact() {
           </div>
           
           {/* Contact Form */}
-          <div className="bg-white rounded-lg p-8 border border-gray-200">
-            <form onSubmit={handleSubmit} className="space-y-6" data-testid="form-contact">
+          <div className="bg-black p-12 shadow-[0_20px_80px_rgba(0,0,0,0.15)]">
+            <form onSubmit={handleSubmit} className="space-y-8" data-testid="form-contact">
               
               <div>
-                <Label htmlFor="name">Name *</Label>
+                <Label htmlFor="name" className="text-white font-medium">Name *</Label>
                 <Input
                   id="name"
                   name="name"
@@ -110,13 +113,13 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Your full name"
-                  className="mt-2"
+                  className="mt-3 bg-white border-0 px-4 py-3 text-black"
                   data-testid="input-name"
                 />
               </div>
               
               <div>
-                <Label htmlFor="email">Email *</Label>
+                <Label htmlFor="email" className="text-white font-medium">Email *</Label>
                 <Input
                   id="email"
                   name="email"
@@ -125,13 +128,13 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="your@email.com"
-                  className="mt-2"
+                  className="mt-3 bg-white border-0 px-4 py-3 text-black"
                   data-testid="input-email"
                 />
               </div>
               
               <div>
-                <Label htmlFor="company">Company</Label>
+                <Label htmlFor="company" className="text-white font-medium">Company</Label>
                 <Input
                   id="company"
                   name="company"
@@ -139,13 +142,13 @@ export default function Contact() {
                   value={formData.company}
                   onChange={handleChange}
                   placeholder="Your company name"
-                  className="mt-2"
+                  className="mt-3 bg-white border-0 px-4 py-3 text-black"
                   data-testid="input-company"
                 />
               </div>
               
               <div>
-                <Label htmlFor="message">Message</Label>
+                <Label htmlFor="message" className="text-white font-medium">Message</Label>
                 <Textarea
                   id="message"
                   name="message"
@@ -153,16 +156,16 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Tell us about your interest in AIRET..."
-                  className="mt-2 resize-none"
+                  className="mt-3 bg-white border-0 px-4 py-3 text-black resize-none"
                   data-testid="textarea-message"
                 />
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col gap-4 pt-4">
                 <Button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="flex-1 bg-black text-white hover:opacity-90"
+                  className="btn-secondary w-full py-4 text-lg font-medium tracking-wide"
                   data-testid="button-submit-demo"
                 >
                   {isSubmitting ? "Sending..." : "Book CES Demo"}
@@ -170,7 +173,7 @@ export default function Contact() {
                 <Button 
                   type="button" 
                   variant="outline"
-                  className="flex-1 border-2 border-black hover:opacity-70"
+                  className="w-full py-4 text-lg font-medium tracking-wide text-white border-2 border-white hover:bg-white hover:text-black transition-all"
                   data-testid="button-contact-us"
                 >
                   Contact Us
