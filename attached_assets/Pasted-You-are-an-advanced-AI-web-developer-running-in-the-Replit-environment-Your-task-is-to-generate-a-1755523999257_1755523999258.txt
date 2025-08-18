@@ -1,0 +1,159 @@
+You are an advanced AI web developer running in the Replit environment.  
+Your task is to generate a **complete, production-ready codebase** for the official CES 2025 website of **AIRET**, a luxury built-in smart shoe care system.  
+
+The website must represent **high-end minimalism, black & white only aesthetics, and luxury editorial quality**.  
+Absolutely no accent colors are allowed. The entire experience should feel like a premium human-designed site, never AI-generated.  
+
+────────────────────────────
+[ OVERALL OBJECTIVE ]
+- Build a CES showcase website for AIRET that instantly conveys luxury, sophistication, and professionalism.  
+- Ensure the site works seamlessly in Replit’s deployment environment.  
+- Must impress **CES judges, media, and international buyers** on first impression.  
+- Must look like it was designed by a top-tier luxury brand agency (Apple / Louis Vuitton / Dyson / Muji aesthetic).  
+
+────────────────────────────
+[ TECH STACK REQUIREMENTS ]
+- **Framework**: Astro 4 (static site generation, optimized for speed and SEO).  
+- **Styling**: TailwindCSS (strict custom palette for Black & White only).  
+- **Interactivity**: React Islands (used selectively for Hero animation and Contact form).  
+- **Animations**: motion-one for subtle fade/slide transitions.  
+- **Hero Animation**: Lottie (JSON animation) or WebP image sequence to simulate a “closet opening” effect. No heavy videos allowed.  
+- **Fonts**: Google Fonts →  
+  - **Playfair Display** for headlines (luxury serif).  
+  - **Noto Sans** for body text (modern sans-serif).  
+- **Hosting**: Replit Deploy.  
+- **Custom Domain**: airet.io (already purchased, must provide configuration in README).  
+- **Form Handling**: Formspree (no backend required).  
+- **Analytics**: Plausible Analytics.  
+- **SEO**: Open Graph tags, Twitter meta, JSON-LD for Product & Organization schema.  
+- **Accessibility**: WCAG compliant (high contrast, semantic HTML).  
+
+────────────────────────────
+[ DESIGN SYSTEM — STRICT BLACK & WHITE ONLY ]
+- **Color Palette** (and nothing else):
+  - Black: #000000  
+  - White: #FFFFFF  
+  - Grays only: #F5F5F5, #EAEAEA, #6B7280  
+- **No other accent colors** (no gold, blue, red, etc).  
+- **Backgrounds**:
+  - White (#FFFFFF) for primary content.  
+  - Black (#000000) for alternating sections (with inverted white text).  
+- **Typography**:
+  - H1: Playfair Display, bold, 5xl-6xl, tracking-tight.  
+  - H2: Playfair Display, semibold, 3xl-4xl.  
+  - Body: Noto Sans, 17px, leading-8.  
+  - Quotes: italic, 1.25rem (editorial style).  
+- **Buttons**:
+  - Primary: Black background, White text, rounded-md (8px).  
+  - Secondary: White background, Black border + Black text.  
+  - Hover: subtle opacity changes (no color change).  
+- **Cards**:
+  - White background, thin 1px gray border (#EAEAEA).  
+  - Hover: very soft shadow (0 1px 3px rgba(0,0,0,0.08)).  
+- **Navbar**:
+  - White background, thin black border bottom.  
+  - Sticky top with backdrop-blur on scroll.  
+  - Mobile: hamburger menu, collapsible panel (black/white only).  
+- **Layout & Spacing**:
+  - Max width: 1120px container.  
+  - Section padding: 80–100px top & bottom.  
+  - Generous whitespace, balanced composition.  
+- **Overall Visual Tone**:
+  - Minimalist, monochrome, luxury magazine aesthetic.  
+  - Must feel timeless, premium, and clean.  
+  - Inspired by Apple product pages and editorial layouts.  
+
+────────────────────────────
+[ PAGE & CONTENT STRUCTURE ]
+
+1. **Landing Page (`/`)**
+   - **Hero Section**:
+     - Left Side:  
+       - H1: “Built-in Luxury Shoe Care System”  
+       - Sub: “Museum-grade Display meets Smart Care.”  
+       - CTA Buttons:  
+         - Primary: “Book a Demo at CES”  
+         - Secondary: “Download Product Sheet (PDF)”  
+     - Right Side: `IMG_6076.png` (front product image, optimized as WebP).  
+     - Animation: Closet opening effect (Lottie/WebP sequence).  
+   - **Innovation Section** (3 cards):  
+     - AI Scheduling — Learns your routine; runs when you don’t.  
+     - Ultra-quiet Airflow — Professional care, minimal noise.  
+     - Integrated Display — Showcase and preserve in one.  
+   - **Team Section**:  
+     - Grid of 3 team member cards (photo placeholder, name, title, expertise).  
+   - **Contact Section**:  
+     - Formspree form fields: Name, Email, Company, Message.  
+     - CTAs: Book a Demo / Download PDF.  
+
+2. **About Page (`/about`)**
+   - Vision & Mission statement (center aligned, editorial typography).  
+   - Timeline layout for company milestones.  
+   - Monochrome horizontal line + dots for milestones.  
+
+3. **Product Page (`/product`)**
+   - Showcase Image: `IMG_6077.png` (full width, open closet).  
+   - Detail Grid: `IMG_6078.png` (3-column layout for trays).  
+   - Key Features (6 items, black & white icons only):  
+     1. AI Scheduling  
+     2. UV-C Sanitization  
+     3. Dehumidify & Dry  
+     4. Showcase Trays  
+     5. Multi-tier Storage  
+     6. App Control  
+   - Technical Specifications Table (monochrome, thin grid lines).  
+
+4. **Patent Page (`/patent`)**
+   - Table listing: Patent Number, Title, Country, Status (Filed/Granted).  
+   - Status indicator: Black/White badges only.  
+
+5. **Media Page (`/media`)**
+   - Grid of press logos (converted to monochrome).  
+   - Quotes styled in italic editorial blocks.  
+   - Downloadable press kit (PDF).  
+
+────────────────────────────
+[ TECHNICAL OPTIMIZATION ]
+- **Images**:
+  - All PNG/JPG → converted to WebP/AVIF for optimization.  
+  - Lazy loading enabled for below-the-fold images.  
+- **Performance**:
+  - Static pre-rendered Astro pages for max speed.  
+  - Critical CSS inlined.  
+- **SEO**:
+  - Open Graph image meta tags (Hero).  
+  - Twitter summary cards.  
+  - JSON-LD markup: Product schema (AIRET), Organization schema.  
+- **Analytics**:
+  - Plausible Analytics script integration.  
+- **Accessibility**:
+  - All text must pass WCAG AA contrast (black/white ensures this).  
+  - Semantic HTML with ARIA roles.  
+
+────────────────────────────
+[ DELIVERABLES ]
+- **Complete Astro 4 + Tailwind codebase** generated.  
+- `/public/images/` must contain:  
+  - `IMG_6076.png` (Hero front image).  
+  - `IMG_6077.png` (Product showcase, open view).  
+  - `IMG_6078.png` (Tray details).  
+- `/public/pdf/one-pager.pdf` → linked for download in Hero + Contact + Media pages.  
+- **README.md** must include:  
+  - Step-by-step setup (install, build, deploy).  
+  - Instructions for connecting airet.io domain.  
+  - Notes on replacing placeholder content.  
+- Placeholder text/images clearly marked with comments.  
+- Ensure deployable immediately on Replit with no extra configuration.  
+
+────────────────────────────
+[ CRITICAL REQUIREMENTS ]
+- **Strict Black & White only** (no accent colors).  
+- Must feel **premium, minimal, high-end**.  
+- Absolutely no “AI demo” aesthetics.  
+- Website must tell a story: product is **built-in, luxury, museum-quality display**.  
+- Judges, press, and buyers should instantly recognize AIRET as a **luxury brand**.  
+- Hero section is key: it must look **editorial, cinematic, timeless**.  
+
+────────────────────────────
+[ FINAL TASK ]
+Now generate the **entire production-ready Astro project codebase** with the above requirements, ensuring **luxury design, perfect black & white minimalism, flawless structure, and Replit compatibility**.

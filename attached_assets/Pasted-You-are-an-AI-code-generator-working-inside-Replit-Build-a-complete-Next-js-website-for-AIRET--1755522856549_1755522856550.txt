@@ -1,0 +1,130 @@
+You are an AI code generator working inside Replit.  
+Build a complete Next.js website for **AIRET**, a built-in luxury smart shoe care system, optimized for CES 2025 presentation.  
+Follow the instructions carefully and generate all necessary code files, assets placeholders, and setup instructions.
+
+---
+
+## Project Setup
+- Framework: Next.js (App Router)
+- Styling: TailwindCSS
+- Animations: Framer Motion
+- Fonts: Google Fonts (Noto Sans for body, Playfair Display for headlines)
+- Theme: White background, Charcoal text (#1A1A1A), Soft Gold accent (#C8A96B)
+- Hosting: Static deploy (Replit Deploy)
+- Domain: airet.io (custom domain, but use default until connected)
+
+---
+
+## Routing
+- `/` (Landing page with scroll sections: Hero, Innovation, Team, Contact)
+- `/about` (Company vision, mission, history)
+- `/product` (Product details, features, specs, showcase images)
+- `/patent` (Patents and IP, organized by category with status)
+- `/media` (Press coverage, media logos, quote highlights)
+
+---
+
+## Sections
+
+### Hero (Landing Page Intro)
+- Black → White transition background effect.
+- Hero animation: built-in shoe closet opening, implemented as **Lottie animation** or **image sequence** (not heavy video).
+- Headline: “Built-in Luxury Shoe Care System”
+- Subline: “Museum-grade Display meets Smart Care”
+- Two CTA buttons: 
+  - “Book a Demo at CES”
+  - “Download Product Sheet (PDF)”
+- Include placeholder for `public/one-pager.pdf`.
+
+### Innovation (Landing Page)
+- Emphasize **differentiation** from traditional shoe care: odor sprays, dryers, simple closets.
+- Show 3 comparison highlights:
+  - **AI Scheduling** (vs manual timers)
+  - **Ultra-quiet airflow** (vs noisy appliances)
+  - **Integrated luxury display** (vs plain storage)
+- Use icons and short copy blocks, animated with fade-in/slide-up.
+
+### Team (Landing Page)
+- Card layout for 3–4 key team members.
+- Each card includes:
+  - Photo placeholder
+  - Name & Role
+  - One-line expertise tagline (ex: “10+ yrs AIoT”, “Luxury Product Designer”)
+
+### Contact (Landing Page)
+- Form with fields: Name, Email, Company, Message
+- Integration: Formspree (API endpoint placeholder)
+- Two CTA buttons:
+  - “Book a Demo at CES”
+  - “Contact Us”
+- PDF download link for product sheet.
+
+### About Page
+- Company Vision, Mission, History (timeline layout)
+- Include placeholders for company milestones.
+
+### Product Page
+- Product renders (placeholders).
+- 6 feature highlights:
+  - AI Smart Scheduling
+  - UV-C + Active Airflow
+  - Dehumidify & Dry
+  - Showcase Trays
+  - Multi-tier Storage
+  - App Control
+- Technical specs table (with placeholder values).
+- Built-in installation showcase image section.
+
+### Patent Page
+- Patent/IP listing with category icons.
+- Fields: Patent Number, Title, Country, Status (Filed/Granted).
+- Placeholder sample data.
+
+### Media Page
+- Grid of press logos (placeholder images).
+- Highlight quotes from press articles (sample text).
+- Example: “AIRET redefines luxury shoe care.” – TechDaily
+
+---
+
+## Design & UX
+- White spacious layout, minimalistic like Linear.app
+- Wide whitespace between sections
+- Headline font: Playfair Display (luxury serif)
+- Body font: Noto Sans
+- Accent with Soft Gold (#C8A96B) on dividers, hover states, subtle highlights
+- Responsive: mobile, tablet, desktop
+- Smooth scroll with Framer Motion fade/slide effects
+- Parallax for gallery images
+
+---
+
+## Technical Details
+- Use Next.js `app/` directory (App Router).
+- Use `next/image` for all images with WebP/AVIF placeholders.
+- Add Plausible Analytics (placeholder script with `data-domain="airet.io"`).
+- Add SEO meta tags: title, description, OG, Twitter cards.
+- Add JSON-LD structured data for Product and Organization.
+
+---
+
+## Assets Placeholders
+- `/public/images/hero-lottie.json` (Lottie file placeholder) OR `/public/images/sequence/frame1.webp` etc.
+- `/public/images/product1.webp`, `/public/images/showcase.webp` etc.
+- `/public/pdf/one-pager.pdf`
+- `/public/media/logo1.png`, `/public/media/logo2.png`
+
+---
+
+## Deliverables
+- Full Next.js project with all pages, components, and styles.
+- Clear folder structure:
+  - `/app` (pages & routes)
+  - `/components` (Hero, Innovation, Team, Contact, Layout, Navbar, Footer)
+  - `/public` (images, pdf, media logos)
+- Ready to deploy on Replit (static).
+- Provide README with setup steps.
+
+---
+
+Now generate the complete codebase with all routes, components, Tailwind setup, and placeholder assets included.

@@ -1,0 +1,151 @@
+Replit All-in-One Prompt — English Final Version
+
+You are an AI code generator running in Replit.
+Create a complete Astro 4 + React Islands + TailwindCSS static website for AIRET, a built-in luxury smart shoe care system, optimized for CES 2025.
+Prioritize fast loads, stability, and premium aesthetics.
+
+0) Hard Requirements (must follow)
+
+Framework: Astro 4 (static SSG)
+
+UI: TailwindCSS
+
+Interactivity: React Islands only where needed; @motionone/astro or framer-motion inside the island
+
+Animation: No videos. Use Lottie or a lightweight image sequence (6–10 WebP frames)
+
+Fonts: Google Fonts — Noto Sans (body), Playfair Display (headlines)
+
+Theme: White base, Charcoal text #1A1A1A, Soft Gold accent #C8A96B
+
+Routing:
+
+/ (scrolling landing with Hero, Innovation, Team, Contact)
+
+/about, /product, /patent, /media (separate pages)
+
+Images: Use the three uploaded product photos as the primary visuals
+
+Filenames: IMG_6076.png, IMG_6077.png, IMG_6078.png
+
+Place under /public/images/ and also generate WebP variants
+
+Forms/Backend: Formspree for contact (no custom backend)
+
+Analytics: Plausible (placeholder domain airet.io)
+
+SEO: OG/Twitter meta + JSON-LD (Product, Organization)
+
+Domain: final domain will be airet.io (use default preview until connected)
+
+Exclude: live high-end Three.js, runtime PDF generation, auth/DB/SSR
+
+1) Project Structure to Generate
+
+Root: astro.config.mjs, package.json, tailwind.config.cjs, postcss.config.cjs
+
+/public
+
+/images/IMG_6076.png, /images/IMG_6077.png, /images/IMG_6078.png (create placeholders and comment “replace with real files”)
+
+/images/sequence/frame1.webp … frame10.webp or /lottie/hero.json (support both; default to sequence in code)
+
+/media/logo1.png, /media/logo2.png (placeholders)
+
+/pdf/one-pager.pdf (placeholder)
+
+/src
+
+/content (sample data for team/patents/media)
+
+/components:
+
+Navbar.astro, Footer.astro, HeroIsland.jsx, SectionTitle.astro, FeatureGrid.astro, TeamGrid.astro, ContactForm.astro, ComparisonTable.astro, Seo.astro
+
+/layouts:
+
+BaseLayout.astro (global head/meta/fonts/header/footer)
+
+/pages:
+
+index.astro (Hero/Innovation/Team/Contact)
+
+about.astro, product.astro, patent.astro, media.astro
+
+2) Design & UX Guidelines
+
+Minimal layout with generous whitespace (Linear.app vibe)
+
+Headlines in Playfair (serif), body in Noto Sans
+
+Use Soft Gold sparingly (thin dividers, button outlines, subtle hovers)
+
+Section entrance animations: fade/slide with motion-one
+
+Light parallax for showcase/gallery images
+
+3) Copy (insert directly as sample English content)
+
+Hero
+
+H1: “Built-in Luxury Shoe Care System”
+
+Sub: “Museum-grade Display meets Smart Care.”
+
+CTAs: “Book a Demo at CES” / “Download Product Sheet (PDF)”
+
+Innovation — three comparison cards
+
+AI Scheduling — Learns your routine; runs when you don’t.
+
+Ultra-quiet Airflow — Professional care, minimal noise.
+
+Integrated Display — Showcase and preserve in one.
+
+Team — 3 sample members (name/role/one-line expertise)
+
+Contact — Formspree (Name/Email/Company/Message), plus PDF link
+
+About — Vision, Mission, Milestones (timeline)
+
+Product — 6 Highlights: AI Scheduling / UV-C + Airflow / Dehumidify & Dry / Showcase Trays / Multi-tier Storage / App Control + Specs table
+
+Patent — table with Number / Title / Country / Status (Filed/Granted), category icons
+
+Media — press logo grid + 1–2 highlighted quotes
+
+Example: “AIRET redefines luxury shoe care.” — TechDaily
+
+Note: Must feature the three photos (IMG_6076/77/78) in key sections (Hero/Showcase/Features). Use <picture> for WebP first, PNG fallback.
+
+4) Technical Implementation (key points)
+
+Hero animation:
+
+Default: image sequence (10 frames) stepping on scroll/visibility
+
+Alternative: lottie-web to play /public/lottie/hero.json (support but sequence is default)
+
+Formspree: POST to https://formspree.io/f/xxxxxx (placeholder); include validation & success/error states
+
+Plausible:
+
+<script defer data-domain="airet.io" src="https://plausible.io/js/script.js"></script>
+
+
+SEO: Seo.astro injects title/desc/OG/Twitter and JSON-LD (Product, Organization)
+
+Images: provide WebP/AVIF, loading="lazy", decoding="async"
+
+A11y: semantic tags, focus styles, alt texts
+
+5) Deliverables
+
+Complete working codebase with all pages/components/styles per above
+
+README with install/dev/build/deploy steps (Replit Deploy + custom domain overview)
+
+Create and reference all placeholder assets, with comments on how to replace them
+
+Now generate the entire project code accordingly.
+(Important: Do not use Next.js. Use Astro 4.)
