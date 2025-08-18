@@ -1,0 +1,76 @@
+import { useEffect, useRef, useState } from "react";
+
+type Props = {
+  srcWebp: string;          // e.g. "/images/IMG_6076.webp"
+  srcPngFallback: string;   // e.g. "/images/IMG_6076.png"
+  alt: string;
+};
+
+export default function HeroDoorMask({ srcWebp, srcPngFallback, alt }: Props) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [reduced, setReduced] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduced(mq.matches);
+    const el = ref.current;
+    if (!el || mq.matches) return;
+
+    let raf = 0;
+    const max = Math.max(1, window.innerHeight * 0.4); // animate over ~40vh
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const y = Math.max(0, window.scrollY);
+        const p = Math.min(1, y / max); // 0 → 1
+        // Mask opens from center outward (two doors)
+        // 0% = fully closed; 100% = fully open
+        // We map p to "gap" in the center using CSS mask-size (or gradient stops)
+        el.style.setProperty("--door-progress", String(p));
+        raf = 0;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className="relative w-full aspect-[4/3] md:aspect-[5/3] overflow-hidden"
+      aria-hidden="true"
+    >
+      {/* Masked layer */}
+      <picture>
+        <source srcSet={srcWebp} type="image/webp" />
+        <img
+          src={srcPngFallback}
+          alt={alt}
+          className="h-full w-full object-contain md:object-cover"
+          loading="eager"
+          decoding="async"
+          style={{
+            WebkitMaskImage: "var(--mask-image)",
+            maskImage: "var(--mask-image)" as any,
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat" as any,
+            WebkitMaskSize: "100% 100%",
+            maskSize: "100% 100%" as any,
+          }}
+        />
+      </picture>
+
+      {/* Fallback overlay for reduced motion: simple fade */}
+      <div
+        className={`pointer-events-none absolute inset-0 bg-white transition-opacity duration-700 ${
+          reduced ? "opacity-0" : "opacity-0"
+        }`}
+      />
+    </div>
+  );
+}

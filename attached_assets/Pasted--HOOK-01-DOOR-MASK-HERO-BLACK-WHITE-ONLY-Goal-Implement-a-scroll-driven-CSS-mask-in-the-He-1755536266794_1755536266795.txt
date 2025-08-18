@@ -1,0 +1,55 @@
+[HOOK-01 DOOR MASK HERO — BLACK & WHITE ONLY]
+
+Goal:
+Implement a scroll-driven CSS mask in the Hero section to simulate a "built-in closet door opening" effect. 
+This must be strictly Black & White, minimal, and editorial.
+
+Instructions:
+1. Layout
+- Hero section split into 2 columns: left (headline + subtext + CTAs), right (product image).
+- Headline: "Built-in Luxury Shoe Care System", left-aligned, tracking-tight.
+- Hero content starts at least 120px below the navbar; avoid any overlap.
+- Hero height = 90–100vh with generous whitespace.
+
+2. Door Mask Effect
+- Apply CSS mask (or -webkit-mask) to Hero image.
+- Mask starts fully closed at scrollY=0, and opens to 100% by scrollY ≈ 40vh.
+- Drive progress with requestAnimationFrame for 60fps.
+- For reduced motion users (prefers-reduced-motion), fallback to simple fade-in (no mask).
+
+3. Image
+- Use IMG_6076.png (Hero product front view) → convert to WebP, with PNG fallback.
+- Alt text: "Front view of AIRET built-in luxury shoe care system".
+- Hero image must occupy ~45% width of container.
+
+4. Styling
+- Monochrome only: no colors, no gradients except mask.
+- Subtext: Noto Sans, gray (#6B7280), 17px.
+- Buttons: 
+  - Primary: Black background, white text, hover opacity 90%.
+  - Secondary: White background, black border, hover invert.
+
+5. Performance & Accessibility
+- Lazy-load images below fold; Hero = eager load.
+- Clamp animation when FPS <45 for >2s or tab inactive.
+- Always honor prefers-reduced-motion.
+
+Acceptance Criteria:
+- Door-opening effect clearly visible, smooth at 60fps.
+- No text or image overlap with navbar.
+- Hero looks like a luxury magazine cover: spacious, minimal, Black & White only.
+
+Code Structure:
+- Create React Island `HeroDoorMask.tsx` for the masked image logic.
+- In global CSS, define `--door-progress` (0→1) and mask gradient expanding from center.
+- Use Astro page `index.astro` with grid layout:
+  - Left: headline + subtext + CTAs
+  - Right: <HeroDoorMask /> with the product image
+- Ensure Tailwind spacing: `max-w-[1120px] mx-auto px-6 md:px-8 pt-[120px]`.
+- Verify /public/images/IMG_6076.png (and .webp) are served correctly.
+
+Checklist:
+- Scrolling the first 40vh reveals product as if doors are opening.
+- Reduced motion → fade only.
+- Hero headline/sub/CTA stack with 24–32px rhythm.
+- Overall impression = futuristic, editorial, luxury.

@@ -1,18 +1,18 @@
 const teamMembers = [
   {
-    name: "Alexander Chen",
-    role: "CEO & Co-Founder",
-    expertise: "15+ yrs Luxury Product Design"
+    name: "구본웅",
+    role: "CEO",
+    expertise: "저는 이런걸 잘해요"
   },
   {
-    name: "Dr. Sarah Williams",
-    role: "CTO & Co-Founder",
-    expertise: "10+ yrs AIoT Engineering"
+    name: "장수빈",
+    role: "PM",
+    expertise: "저는 이런걸 잘해요"
   },
   {
-    name: "Marcus Thompson",
-    role: "Head of Design",
-    expertise: "Museum Display Specialist"
+    name: "배승환",
+    role: "죽음의 개발자",
+    expertise: "다 만들 수 있어요"
   }
 ];
 
@@ -39,10 +39,10 @@ export default function Team() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-16">
           {teamMembers.map((member, index) => (
             <div 
-              key={member.name}
+              key={`${member.name}-${index}`}
               className="bg-white p-8 hover:shadow-[0_20px_80px_rgba(255,255,255,0.1)] transition-all duration-500 animate-fade-in border border-white/10"
               style={{ animationDelay: `${index * 0.2}s` }}
-              data-testid={`card-team-${member.name.toLowerCase().replace(/\s+/g, '-')}`}
+              data-testid={`card-team-${index}`}
             >
               <div className="aspect-square bg-gray-100 flex items-center justify-center mb-8">
                 <div className="w-20 h-20 bg-black rounded-full flex items-center justify-center">
