@@ -1,5 +1,5 @@
 import SEO from "@/components/SEO";
-import Hero from "@/components/Hero";
+import WebGLDoorHero from "@/components/WebGLDoorHero";
 import Innovation from "@/components/Innovation";
 import ProductShowcase from "@/components/ProductShowcase";
 import Team from "@/components/Team";
@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <SEO />
-      <Hero />
+      <WebGLDoorHero />
       <Innovation />
       <ProductShowcase />
       <Team />
