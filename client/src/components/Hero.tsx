@@ -5,7 +5,7 @@ import heroImage from "@assets/IMG_6076_1755522864402.png";
 export default function Hero() {
   const [hasAnimated, setHasAnimated] = useState(false);
   const [copyRevealed, setCopyRevealed] = useState(false);
-
+  const [glassPanesAnimated, setGlassPanesAnimated] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
@@ -40,7 +40,10 @@ export default function Hero() {
           if (prefersReducedMotion) {
             // Skip animations, show everything immediately
             setCopyRevealed(true);
+            setGlassPanesAnimated(true);
           } else {
+            // Start glass panes animation immediately
+            setGlassPanesAnimated(true);
             // Start copy reveal after 900ms
             setTimeout(() => setCopyRevealed(true), 900);
           }
@@ -92,6 +95,26 @@ export default function Hero() {
           backgroundSize: 'cover'
         }}
       />
+
+      {/* Glass Pane Reflection Overlay */}
+      {!prefersReducedMotion && (
+        <>
+          {/* Glass Pane 1 */}
+          <div 
+            className={`glass-pane glass-pane-1 ${glassPanesAnimated ? 'animated' : ''}`}
+          />
+          
+          {/* Glass Pane 2 */}
+          <div 
+            className={`glass-pane glass-pane-2 ${glassPanesAnimated ? 'animated' : ''}`}
+          />
+          
+          {/* Glass Pane 3 */}
+          <div 
+            className={`glass-pane glass-pane-3 ${glassPanesAnimated ? 'animated' : ''}`}
+          />
+        </>
+      )}
 
       {/* Copy Overlay */}
       <div className="absolute inset-0 z-20 flex items-center" style={{ paddingTop: '120px' }}>
