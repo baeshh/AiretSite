@@ -1,4 +1,6 @@
 import { CheckCircle } from "lucide-react";
+import showcaseImage from "@assets/IMG_6077_1755522864402.png";
+import detailImage from "@assets/IMG_6078_1755522864402.png";
 
 const features = [
   {
@@ -38,7 +40,7 @@ export default function ProductShowcase() {
         {/* Main Showcase Image - Full Width Cinematic */}
         <div className="mb-24">
           <img 
-            src="/images/IMG_6077.png" 
+            src={showcaseImage} 
             alt="AIRET luxury shoe care system open view showing multiple storage compartments" 
             className="w-full h-auto shadow-[0_40px_120px_rgba(0,0,0,0.15)] product-hover-zoom"
             data-testid="img-product-showcase"
@@ -81,7 +83,7 @@ export default function ProductShowcase() {
             {/* Detail Image - 3-column grid effect */}
             <div className="grid grid-cols-1 gap-6">
               <img 
-                src="/images/IMG_6078.png" 
+                src={detailImage} 
                 alt="AIRET luxury shoe care system detail view showing illuminated display trays" 
                 className="w-full h-auto shadow-[0_20px_80px_rgba(0,0,0,0.12)] product-hover-zoom"
                 data-testid="img-product-detail"

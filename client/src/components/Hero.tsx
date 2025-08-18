@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import heroImage from "@assets/IMG_6076_1755522864402.png";
 
 export default function Hero() {
   return (
@@ -63,11 +64,13 @@ export default function Hero() {
           <div className="slide-in-right">
             <div className="relative">
               <img 
-                src="/images/IMG_6076.png" 
+                src={heroImage} 
                 alt="AIRET luxury built-in shoe care system front view" 
                 className="w-full h-auto shadow-[0_20px_80px_rgba(0,0,0,0.12)] product-hover-zoom"
                 data-testid="img-hero-product"
+                onLoad={() => console.log('Hero image loaded successfully')}
                 onError={(e) => {
+                  console.error('Failed to load hero image:', e);
                   // Fallback to placeholder if image fails to load
                   const target = e.target as HTMLImageElement;
                   target.src = "https://images.unsplash.com/photo-1556906781-9a412961c28c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=1000";
