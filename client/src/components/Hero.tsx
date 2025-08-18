@@ -29,7 +29,7 @@ export default function Hero() {
     };
   }, []);
 
-  // Scroll-driven open and close animation tracking
+  // Scroll-out close animation tracking
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -41,78 +41,54 @@ export default function Hero() {
       setScrollProgress(pinProgress);
       
       if (prefersReducedMotion) {
-        // Simple crossfade for reduced motion
-        const midPoint = windowHeight * 0.5;
-        if (scrollY < midPoint) {
-          setKenBurnsProgress(scrollY / midPoint);
-        } else {
-          setKenBurnsProgress(2 - (scrollY / midPoint));
-        }
-        setWordVisibility([1, 1, 1, 1, 1]);
-        setSubtextVisible(1);
-        setCtasVisible(1);
+        // Simple fade for reduced motion - fade out text and crossfade to white
+        const fadeProgress = Math.min(scrollY / (windowHeight * 0.8), 1);
+        setKenBurnsProgress(1 - fadeProgress);
+        setWordVisibility([1 - fadeProgress, 1 - fadeProgress, 1 - fadeProgress, 1 - fadeProgress, 1 - fadeProgress]);
+        setSubtextVisible(1 - fadeProgress);
+        setCtasVisible(1 - fadeProgress);
+        setGlassPaneProgress(fadeProgress);
         return;
       }
       
-      // Three phases: Entry (0-20vh), Stable (20-50vh), Exit (50-100vh)
-      
-      // Entry Phase (0 → 20vh): Panels open, content reveals
-      if (scrollY <= windowHeight * 0.2) {
-        const entryProgress = scrollY / (windowHeight * 0.2);
-        
-        // Ken Burns during entry
-        setKenBurnsProgress(entryProgress);
-        
-        // Glass panels slide outward (0 → 1)
-        setGlassPaneProgress(entryProgress);
-        
-        // Content fades in with stagger
-        const baseDelay = 0.3; // Start revealing at 30% of entry
-        const words = [
-          Math.min(Math.max((entryProgress - baseDelay) / 0.1, 0), 1),
-          Math.min(Math.max((entryProgress - baseDelay - 0.05) / 0.1, 0), 1),
-          Math.min(Math.max((entryProgress - baseDelay - 0.1) / 0.1, 0), 1),
-          Math.min(Math.max((entryProgress - baseDelay - 0.15) / 0.1, 0), 1),
-          Math.min(Math.max((entryProgress - baseDelay - 0.2) / 0.1, 0), 1),
-        ];
-        setWordVisibility(words);
-        
-        setSubtextVisible(Math.min(Math.max((entryProgress - 0.6) / 0.2, 0), 1));
-        setCtasVisible(Math.min(Math.max((entryProgress - 0.8) / 0.2, 0), 1));
-        
-        // Trigger specular sweep when entry is 80% complete
-        if (entryProgress >= 0.8 && !specularTriggered) {
-          setSpecularTriggered(true);
-        }
-      }
-      
-      // Stable Phase (20vh → 50vh): Hold steady
-      else if (scrollY <= windowHeight * 0.5) {
-        // Maintain open state
+      // Initial state (0vh): Hero fully open
+      if (scrollY === 0) {
         setKenBurnsProgress(1);
-        setGlassPaneProgress(1);
+        setGlassPaneProgress(0); // No panels visible
         setWordVisibility([1, 1, 1, 1, 1]);
         setSubtextVisible(1);
         setCtasVisible(1);
+        if (!specularTriggered) {
+          setSpecularTriggered(true);
+        }
+        return;
       }
       
-      // Exit Phase (50vh → 100vh): Panels close, content fades out
-      else {
-        const exitStart = windowHeight * 0.5;
-        const exitRange = windowHeight * 0.5;
-        const exitProgress = (scrollY - exitStart) / exitRange;
+      // Scroll out phase (20vh → 100vh): Panels close, content fades
+      const scrollOutStart = windowHeight * 0.2;
+      const scrollOutRange = windowHeight * 0.8;
+      
+      if (scrollY >= scrollOutStart) {
+        const closeProgress = Math.min((scrollY - scrollOutStart) / scrollOutRange, 1);
         
-        // Maintain Ken Burns at full
+        // Ken Burns stays at full
         setKenBurnsProgress(1);
         
-        // Glass panels slide back inward (1 → 0)
-        setGlassPaneProgress(1 - exitProgress);
+        // Panels slide inward (0 → 1)
+        setGlassPaneProgress(closeProgress);
         
         // Content fades out with downward drift
-        const fadeOut = 1 - exitProgress;
+        const fadeOut = 1 - closeProgress;
         setWordVisibility([fadeOut, fadeOut, fadeOut, fadeOut, fadeOut]);
         setSubtextVisible(fadeOut);
         setCtasVisible(fadeOut);
+      } else {
+        // Before 20vh: maintain fully open state
+        setKenBurnsProgress(1);
+        setGlassPaneProgress(0);
+        setWordVisibility([1, 1, 1, 1, 1]);
+        setSubtextVisible(1);
+        setCtasVisible(1);
       }
     };
 
@@ -142,27 +118,35 @@ export default function Hero() {
         }}
       />
 
-      {/* Scroll-Driven Glass Door Panels */}
+      {/* Scroll-Out Closing Panels */}
       {!prefersReducedMotion && (
         <>
-          {/* Left Door Panel */}
+          {/* Left Closing Panel */}
           <div 
-            className="glass-door glass-door-left scroll-driven"
+            className="closing-panel closing-panel-left scroll-driven"
             style={{
-              transform: `perspective(2500px) rotateY(-3deg) translateX(${glassPaneProgress * -30}vw)`,
-              opacity: glassPaneProgress === 1 ? 0 : 0.85
+              transform: `translateX(${-40 + (glassPaneProgress * 40)}vw)`,
+              opacity: glassPaneProgress > 0 ? 0.95 : 0
             }}
           />
           
-          {/* Right Door Panel */}
+          {/* Right Closing Panel */}
           <div 
-            className="glass-door glass-door-right scroll-driven"
+            className="closing-panel closing-panel-right scroll-driven"
             style={{
-              transform: `perspective(2500px) rotateY(3deg) translateX(${glassPaneProgress * 30}vw)`,
-              opacity: glassPaneProgress === 1 ? 0 : 0.85
+              transform: `translateX(${40 - (glassPaneProgress * 40)}vw)`,
+              opacity: glassPaneProgress > 0 ? 0.95 : 0
             }}
           />
         </>
+      )}
+
+      {/* Reduced Motion Fallback */}
+      {prefersReducedMotion && glassPaneProgress > 0 && (
+        <div 
+          className="absolute inset-0 bg-white z-15"
+          style={{ opacity: glassPaneProgress }}
+        />
       )}
 
       {/* Copy Overlay */}
@@ -178,7 +162,7 @@ export default function Hero() {
                     className="scroll-word-reveal"
                     style={{ 
                       opacity: wordVisibility[0],
-                      transform: `translateY(${wordVisibility[0] < 1 ? (1 - wordVisibility[0]) * 16 : (scrollProgress > 0.5 ? (scrollProgress - 0.5) * 2 * 25 : 0)}px)`
+                      transform: `translateY(${(1 - wordVisibility[0]) * 20}px)`
                     }}
                   >
                     Built-in
@@ -187,7 +171,7 @@ export default function Hero() {
                     className="scroll-word-reveal"
                     style={{ 
                       opacity: wordVisibility[1],
-                      transform: `translateY(${wordVisibility[1] < 1 ? (1 - wordVisibility[1]) * 16 : (scrollProgress > 0.5 ? (scrollProgress - 0.5) * 2 * 25 : 0)}px)`
+                      transform: `translateY(${(1 - wordVisibility[1]) * 20}px)`
                     }}
                   >
                     Luxury
@@ -197,7 +181,7 @@ export default function Hero() {
                     className="scroll-word-reveal"
                     style={{ 
                       opacity: wordVisibility[2],
-                      transform: `translateY(${wordVisibility[2] < 1 ? (1 - wordVisibility[2]) * 16 : (scrollProgress > 0.5 ? (scrollProgress - 0.5) * 2 * 25 : 0)}px)`
+                      transform: `translateY(${(1 - wordVisibility[2]) * 20}px)`
                     }}
                   >
                     Shoe
@@ -206,7 +190,7 @@ export default function Hero() {
                     className="scroll-word-reveal"
                     style={{ 
                       opacity: wordVisibility[3],
-                      transform: `translateY(${wordVisibility[3] < 1 ? (1 - wordVisibility[3]) * 16 : (scrollProgress > 0.5 ? (scrollProgress - 0.5) * 2 * 25 : 0)}px)`
+                      transform: `translateY(${(1 - wordVisibility[3]) * 20}px)`
                     }}
                   >
                     Care
@@ -215,7 +199,7 @@ export default function Hero() {
                     className="scroll-word-reveal"
                     style={{ 
                       opacity: wordVisibility[4],
-                      transform: `translateY(${wordVisibility[4] < 1 ? (1 - wordVisibility[4]) * 16 : (scrollProgress > 0.5 ? (scrollProgress - 0.5) * 2 * 25 : 0)}px)`
+                      transform: `translateY(${(1 - wordVisibility[4]) * 20}px)`
                     }}
                   >
                     System
@@ -223,29 +207,29 @@ export default function Hero() {
                 </h1>
                 
                 {/* Specular Sweep */}
-                {specularTriggered && !prefersReducedMotion && (
+                {specularTriggered && !prefersReducedMotion && scrollProgress < 0.2 && (
                   <div className="specular-sweep-horizontal absolute top-0 left-0 w-full h-full pointer-events-none" />
                 )}
               </div>
               
-              {/* Scroll-Revealed Subtext */}
+              {/* Scroll-Out Subtext */}
               <p 
                 className="text-gray-200 text-xl lg:text-2xl leading-relaxed font-light max-w-lg drop-shadow-md scroll-text-reveal"
                 style={{ 
                   opacity: subtextVisible,
-                  transform: `translateY(${subtextVisible < 1 ? (1 - subtextVisible) * 14 : (scrollProgress > 0.5 ? (scrollProgress - 0.5) * 2 * 22 : 0)}px)`
+                  transform: `translateY(${(1 - subtextVisible) * 20}px)`
                 }}
               >
                 Museum-quality display meets AI-powered maintenance for the modern luxury home.
               </p>
             </div>
             
-            {/* Scroll-Revealed CTAs */}
+            {/* Scroll-Out CTAs */}
             <div 
               className="flex flex-col sm:flex-row gap-6 scroll-ctas-reveal"
               style={{ 
                 opacity: ctasVisible,
-                transform: `translateY(${ctasVisible < 1 ? (1 - ctasVisible) * 12 : (scrollProgress > 0.5 ? (scrollProgress - 0.5) * 2 * 20 : 0)}px)`
+                transform: `translateY(${(1 - ctasVisible) * 20}px)`
               }}
             >
               <Button 
