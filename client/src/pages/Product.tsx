@@ -2,6 +2,8 @@ import SEO from "@/components/SEO";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Brain, Shield, Droplets, Eye, Archive, Smartphone } from "lucide-react";
+import productOverviewImage from "@assets/IMG_6080_1755534213427.png";
+import museumDisplayImage from "@assets/IMG_6079_1755533708918.png";
 
 const features = [
   {
@@ -71,24 +73,27 @@ export default function Product() {
       
       <div className="pt-20">
         {/* Hero Section */}
-        <section className="bg-background py-section-lg">
+        <section className="bg-white py-24 lg:py-32 relative">
+          {/* Section Divider */}
+          <div className="section-divider absolute top-0"></div>
+          
           <div className="max-w-container mx-auto px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h1 className="font-playfair text-4xl lg:text-5xl font-semibold mb-6">
+            <div className="text-left mb-20">
+              <h1 className="font-playfair text-5xl lg:text-6xl font-bold mb-8 tracking-tighter leading-tight">
                 AIRET Product Overview
               </h1>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              <div className="editorial-quote max-w-3xl">
                 A revolutionary built-in system that transforms luxury shoe storage 
                 through intelligent care, climate control, and museum-quality presentation.
-              </p>
+              </div>
             </div>
             
             {/* Main Product Image */}
             <div className="mb-16">
               <img 
-                src="/images/IMG_6077.png" 
-                alt="AIRET luxury shoe care system open view showing multiple storage compartments" 
-                className="w-full h-auto rounded-xl shadow-2xl"
+                src={productOverviewImage} 
+                alt="AIRET luxury shoe care system with ultra-quiet operation and illuminated display compartments" 
+                className="w-full h-auto shadow-[0_40px_120px_rgba(0,0,0,0.15)] product-hover-zoom"
                 data-testid="img-product-hero"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
@@ -100,52 +105,53 @@ export default function Product() {
         </section>
 
         {/* Features Section */}
-        <section className="bg-muted py-section-lg">
+        <section className="bg-black py-24 lg:py-32 relative">
+          {/* Section Divider */}
+          <div className="section-divider absolute top-0 bg-white opacity-20"></div>
+          
           <div className="max-w-container mx-auto px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="font-playfair text-3xl lg:text-4xl font-semibold mb-6">
+            <div className="text-left mb-20">
+              <h2 className="font-playfair text-5xl lg:text-6xl font-bold mb-8 text-white tracking-tighter leading-tight">
                 Six Pillars of Excellence
               </h2>
-              <p className="text-body text-muted-foreground max-w-2xl mx-auto">
+              <div className="editorial-quote text-gray-300 max-w-3xl border-l-white/30">
                 Every feature has been meticulously designed to provide unparalleled 
                 shoe care and presentation in luxury environments.
-              </p>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-16">
               {features.map((feature, index) => (
-                <Card 
+                <div 
                   key={feature.title}
-                  className="p-6 hover:shadow-lg transition-all duration-300 animate-fade-in"
+                  className="bg-white p-10 hover:shadow-[0_20px_80px_rgba(255,255,255,0.1)] transition-all duration-500 animate-fade-in border border-white/10"
                   style={{ animationDelay: `${index * 0.1}s` }}
                   data-testid={`card-feature-${feature.title.toLowerCase().replace(/\s+/g, '-')}`}
                 >
-                  <CardContent className="p-0">
-                    <div className="text-center space-y-4">
-                      <div className="w-12 h-12 mx-auto bg-primary rounded-lg flex items-center justify-center">
-                        <feature.icon className="w-6 h-6 text-primary-foreground" />
-                      </div>
-                      <h3 className="font-playfair text-xl font-semibold">{feature.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {feature.description}
-                      </p>
+                  <div className="text-left space-y-6">
+                    <div className="w-12 h-12 bg-black flex items-center justify-center">
+                      <feature.icon className="text-white w-6 h-6" />
                     </div>
-                  </CardContent>
-                </Card>
+                    <h3 className="font-playfair text-2xl font-bold tracking-tight">{feature.title}</h3>
+                    <p className="text-gray-600 leading-relaxed font-light">
+                      {feature.description}
+                    </p>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Detail Image Section */}
+        {/* Museum-Quality Display Section */}
         <section className="bg-background py-section">
           <div className="max-w-container mx-auto px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <div>
                 <img 
-                  src="/images/IMG_6078.png" 
-                  alt="AIRET luxury shoe care system detail view showing illuminated display trays" 
-                  className="w-full h-auto rounded-xl shadow-xl"
+                  src={museumDisplayImage} 
+                  alt="AIRET museum-quality display with precision LED lighting and climate control" 
+                  className="w-full h-auto shadow-[0_20px_80px_rgba(0,0,0,0.12)] product-hover-zoom"
                   data-testid="img-product-detail"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
