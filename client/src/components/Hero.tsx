@@ -1,151 +1,37 @@
 import { Button } from "@/components/ui/button";
-import { useEffect, useRef, useState } from 'react';
-import heroImage from "@assets/IMG_6076_1755522864402.png";
+import HeroDoorMask from "./HeroDoorMask";
 
 export default function Hero() {
-  const [hasAnimated, setHasAnimated] = useState(false);
-  const [copyRevealed, setCopyRevealed] = useState(false);
-  const [museumLabelVisible, setMuseumLabelVisible] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const sectionRef = useRef<HTMLElement>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-
-  useEffect(() => {
-    // Check for reduced motion preference
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(mediaQuery.matches);
-    
-    const handleChange = (e: MediaQueryListEvent) => {
-      setPrefersReducedMotion(e.matches);
-    };
-    
-    mediaQuery.addEventListener('change', handleChange);
-    
-    return () => {
-      mediaQuery.removeEventListener('change', handleChange);
-    };
-  }, []);
-
-  // Intersection Observer for trigger
-  useEffect(() => {
-    if (!sectionRef.current || hasAnimated) return;
-
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
-        if (entry.isIntersecting && !hasAnimated) {
-          setHasAnimated(true);
-          
-          if (prefersReducedMotion) {
-            // Skip animations, show everything immediately
-            setCopyRevealed(true);
-            setTimeout(() => setMuseumLabelVisible(true), 300);
-          } else {
-            // Start copy reveal after 900ms
-            setTimeout(() => setCopyRevealed(true), 900);
-            // Show museum label after copy settles
-            setTimeout(() => setMuseumLabelVisible(true), 1800);
-          }
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observerRef.current.observe(sectionRef.current);
-
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, [hasAnimated, prefersReducedMotion]);
-
-  // Scroll progress tracking for pinning
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const maxScroll = windowHeight * 0.7; // Pin for 70vh
-      const progress = Math.min(scrollY / maxScroll, 1);
-      setScrollProgress(progress);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const isPinned = scrollProgress < 1;
-
   return (
-    <section 
-      ref={sectionRef}
-      className={`relative h-screen w-full overflow-hidden ${
-        isPinned ? 'fixed top-0 left-0 z-10' : ''
-      } ${prefersReducedMotion ? 'hero-reduced-motion' : ''}`}
-    >
-      {/* Cinematic Ken Burns Background */}
-      <div 
-        className={`absolute inset-0 bg-cover bg-center bg-no-repeat ${
-          hasAnimated && !prefersReducedMotion ? 'ken-burns-active' : 'ken-burns-static'
-        }`}
-        style={{ 
-          backgroundImage: `url(${heroImage})`,
-          backgroundPosition: 'center center',
-          backgroundSize: 'cover'
-        }}
-      />
-
-      {/* Copy Overlay */}
-      <div className="absolute inset-0 z-20 flex items-center" style={{ paddingTop: '120px' }}>
-        <div className="max-w-[1120px] mx-auto px-6 md:px-8 w-full">
-          <div className="max-w-2xl space-y-8 lg:space-y-12">
+    <section className="bg-white relative min-h-[90vh] lg:min-h-[100vh] flex items-center pt-[120px]">
+      
+      <div className="max-w-[1120px] mx-auto px-6 md:px-8 w-full">
+        
+        {/* Hero Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-8 items-center">
+          
+          {/* Left Column - Content (editorial magazine layout) */}
+          <div className="lg:col-span-2 space-y-12 lg:space-y-16">
             
-            {/* Main Headline with Kinetic Reveal */}
-            <div className={`space-y-6 ${copyRevealed ? 'copy-revealed' : 'copy-hidden'}`}>
-              <div className="relative">
-                <h1 className="font-playfair text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tighter leading-tight text-white drop-shadow-lg">
-                  <span className="kinetic-word-cinema" style={{ animationDelay: '0ms' }}>
-                    Built-in
-                  </span>{' '}
-                  <span className="kinetic-word-cinema" style={{ animationDelay: '60ms' }}>
-                    Luxury
-                  </span>
-                  <br />
-                  <span className="kinetic-word-cinema" style={{ animationDelay: '120ms' }}>
-                    Shoe
-                  </span>{' '}
-                  <span className="kinetic-word-cinema" style={{ animationDelay: '180ms' }}>
-                    Care
-                  </span>{' '}
-                  <span className="kinetic-word-cinema" style={{ animationDelay: '240ms' }}>
-                    System
-                  </span>
-                </h1>
-                
-                {/* Specular Sweep */}
-                {copyRevealed && !prefersReducedMotion && (
-                  <div className="specular-sweep-horizontal absolute top-0 left-0 w-full h-full pointer-events-none" />
-                )}
-              </div>
+            {/* Main Headline - Editorial Style */}
+            <div className="space-y-8">
+              <h1 className="font-playfair text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tighter leading-tight text-black slide-in-left">
+                Built-in Luxury 
+                <br />
+                Shoe Care System
+              </h1>
               
               {/* Editorial Subtext */}
-              <p 
-                className="text-gray-200 text-lg lg:text-xl leading-relaxed font-light max-w-lg drop-shadow-md kinetic-text-cinema"
-                style={{ animationDelay: '400ms' }}
-              >
+              <p className="text-[#6B7280] text-xl lg:text-2xl leading-relaxed font-light slide-in-left max-w-lg" style={{ animationDelay: '0.2s' }}>
                 Museum-quality display meets AI-powered maintenance for the modern luxury home.
               </p>
             </div>
             
             {/* Call-to-Action Buttons */}
-            <div 
-              className={`flex flex-col sm:flex-row gap-4 kinetic-buttons-cinema ${copyRevealed ? 'revealed' : ''}`}
-              style={{ animationDelay: '560ms' }}
-            >
+            <div className="flex flex-col sm:flex-row gap-6 slide-in-left" style={{ animationDelay: '0.4s' }}>
               <Button 
                 size="lg" 
-                className="bg-white text-black hover:bg-gray-100 px-8 py-4 text-lg font-medium transition-all duration-300 shadow-lg"
+                className="bg-black text-white hover:opacity-90 px-10 py-5 text-lg font-medium transition-opacity duration-300"
                 data-testid="button-cta-primary"
               >
                 View Product Details
@@ -153,33 +39,20 @@ export default function Hero() {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-black px-8 py-4 text-lg font-medium transition-all duration-300"
+                className="bg-white border-black text-black hover:bg-black hover:text-white px-10 py-5 text-lg font-medium transition-all duration-300"
                 data-testid="button-cta-secondary"
               >
                 Schedule Demo
               </Button>
             </div>
           </div>
+          
+          {/* Right Column - Product Image with Door Mask Effect */}
+          <div className="lg:col-span-3 lg:ml-auto">
+            <HeroDoorMask className="scale-110 lg:scale-125 xl:scale-150" />
+          </div>
         </div>
       </div>
-
-      {/* Museum Label */}
-      <div 
-        className={`absolute bottom-8 left-6 md:left-8 z-30 museum-label ${
-          museumLabelVisible ? 'visible' : 'hidden'
-        }`}
-      >
-        <div className="bg-white/98 backdrop-blur-sm px-6 py-4 shadow-xl border border-gray-300 rounded-sm">
-          <p className="text-sm font-semibold text-black tracking-widest uppercase letter-spacing-wide">
-            UV-C · AI Scheduling · Low-Noise
-          </p>
-        </div>
-      </div>
-
-      {/* Clean divider for next section */}
-      {!isPinned && (
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-white z-10" />
-      )}
     </section>
   );
 }
