@@ -5,7 +5,7 @@ import heroImage from "@assets/IMG_6076_1755522864402.png";
 export default function Hero() {
   const [hasAnimated, setHasAnimated] = useState(false);
   const [copyRevealed, setCopyRevealed] = useState(false);
-  const [museumLabelVisible, setMuseumLabelVisible] = useState(false);
+
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
@@ -40,12 +40,9 @@ export default function Hero() {
           if (prefersReducedMotion) {
             // Skip animations, show everything immediately
             setCopyRevealed(true);
-            setTimeout(() => setMuseumLabelVisible(true), 300);
           } else {
             // Start copy reveal after 900ms
             setTimeout(() => setCopyRevealed(true), 900);
-            // Show museum label after copy settles
-            setTimeout(() => setMuseumLabelVisible(true), 1800);
           }
         }
       },
@@ -163,18 +160,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Museum Label */}
-      <div 
-        className={`absolute bottom-8 left-6 md:left-8 z-30 museum-label ${
-          museumLabelVisible ? 'visible' : 'hidden'
-        }`}
-      >
-        <div className="bg-white/95 backdrop-blur-sm px-4 py-3 shadow-lg border border-gray-200 rounded-sm">
-          <p className="text-xs font-medium text-black tracking-widest uppercase">
-            UV-C · AI Scheduling · Low-Noise
-          </p>
-        </div>
-      </div>
+
 
       {/* Clean divider for next section */}
       {!isPinned && (
