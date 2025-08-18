@@ -2,25 +2,25 @@ import { Button } from "@/components/ui/button";
 
 export default function Hero() {
   return (
-    <section className="bg-white py-0 min-h-screen flex items-center relative overflow-hidden">
+    <section className="bg-white pt-32 pb-0 min-h-screen flex items-center relative overflow-hidden">
       {/* Section Divider */}
       <div className="section-divider absolute top-0"></div>
       
       <div className="max-w-container mx-auto px-6 lg:px-8 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center min-h-[calc(100vh-8rem)]">
           
           {/* Left Column - Content (45% width with generous whitespace) */}
-          <div className="space-y-10 fade-in-up lg:max-w-lg">
-            <div className="space-y-8">
+          <div className="space-y-16 fade-in-up lg:max-w-lg">
+            <div className="space-y-12">
               <h1 className="font-playfair text-6xl lg:text-7xl font-bold tracking-tighter leading-none text-left">
                 Built-in Luxury Shoe Care System
               </h1>
-              <div className="editorial-quote">
+              <div className="editorial-quote text-xl">
                 Museum-grade Display meets Smart Care.
               </div>
             </div>
             
-            <div className="flex flex-col gap-4 max-w-sm">
+            <div className="flex flex-col gap-6 max-w-sm">
               <Button 
                 size="lg" 
                 className="btn-primary px-10 py-4 text-lg font-medium tracking-wide"
@@ -38,11 +38,11 @@ export default function Hero() {
               </Button>
             </div>
             
-            <div className="pt-12 space-y-4">
+            <div className="pt-16 space-y-6">
               <div className="text-xs uppercase tracking-wider font-medium text-muted-foreground">
                 Core Features
               </div>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <div className="flex items-center space-x-3 text-sm font-light">
                   <div className="w-1 h-1 bg-black rounded-full"></div>
                   <span>AI Scheduling</span>
