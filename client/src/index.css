@@ -296,99 +296,51 @@
 
 /* Mobile Responsive Scroll Adjustments */
 @media (max-width: 768px) {
-  .glass-pane.scroll-driven {
-    transform: perspective(2000px) rotateY(0deg) rotateX(0deg) !important;
+  .glass-door.scroll-driven {
+    transform: perspective(1500px) rotateY(0deg) !important;
   }
 }
 
-/* ===== LUXURY CINEMATIC GLASS REVEAL - BLACK & WHITE ONLY ===== */
+/* ===== SCROLL-DRIVEN GLASS DOOR SYSTEM - BLACK & WHITE ONLY ===== */
 
-/* Glass Pane Reflection Overlay */
-.glass-pane {
+/* Glass Door Panels */
+.glass-door {
   position: absolute;
   top: 0;
-  width: 100vw;
+  width: 50vw;
   height: 100vh;
-  background: rgba(255, 255, 255, 0.23);
-  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.05), inset 0 0 8px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.06), inset 0 0 12px rgba(0, 0, 0, 0.1);
   z-index: 15;
   transform-style: preserve-3d;
-  transition: all 750ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform, opacity;
+  transition: none;
 }
 
-.glass-pane-1 {
-  transform: perspective(2500px) rotateY(-6deg) rotateX(1deg);
-  width: 42vw;
-  left: 8vw;
-  background: rgba(255, 255, 255, 0.25);
+.glass-door-left {
+  left: 0;
+  transform-origin: left center;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.8) 100%);
 }
 
-.glass-pane-2 {
-  transform: perspective(2500px) rotateY(7deg) rotateX(-0.5deg);
-  width: 38vw;
-  left: 52vw;
-  background: rgba(255, 255, 255, 0.20);
+.glass-door-right {
+  right: 0;
+  transform-origin: right center;
+  background: linear-gradient(270deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.8) 100%);
 }
 
-.glass-pane-3 {
-  transform: perspective(2500px) rotateY(-5deg) rotateX(2deg);
-  width: 36vw;
-  left: 28vw;
-  background: rgba(255, 255, 255, 0.22);
-}
-
-.glass-pane-1.animated {
-  transform: perspective(2500px) rotateY(-6deg) rotateX(1deg) translateX(-38vw);
-  opacity: 0;
-  transition-duration: 750ms;
-}
-
-.glass-pane-2.animated {
-  transform: perspective(2500px) rotateY(7deg) rotateX(-0.5deg) translateX(35vw);
-  opacity: 0;
-  transition-delay: 150ms;
-  transition-duration: 750ms;
-}
-
-.glass-pane-3.animated {
-  transform: perspective(2500px) rotateY(-5deg) rotateX(2deg) translateX(-32vw);
-  opacity: 0;
-  transition-delay: 200ms;
-  transition-duration: 750ms;
-}
-
-/* Mobile Glass Panes */
+/* Mobile Glass Doors */
 @media (max-width: 768px) {
-  .glass-pane {
-    transition-duration: 650ms;
+  .glass-door {
+    background: rgba(255, 255, 255, 0.75);
   }
   
-  .glass-pane-1 {
-    transform: perspective(2000px) rotateY(-4deg) rotateX(0.5deg);
+  .glass-door-left {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.7) 100%);
   }
   
-  .glass-pane-2 {
-    transform: perspective(2000px) rotateY(4deg) rotateX(-0.3deg);
-  }
-  
-  .glass-pane-3 {
-    transform: perspective(2000px) rotateY(-3deg) rotateX(1deg);
-  }
-  
-  .glass-pane-1.animated {
-    transform: perspective(2000px) rotateY(-4deg) rotateX(0.5deg) translateX(-22vw);
-    transition-duration: 650ms;
-  }
-  
-  .glass-pane-2.animated {
-    transform: perspective(2000px) rotateY(4deg) rotateX(-0.3deg) translateX(18vw);
-    transition-duration: 650ms;
-  }
-  
-  .glass-pane-3.animated {
-    transform: perspective(2000px) rotateY(-3deg) rotateX(1deg) translateX(-18vw);
-    transition-duration: 650ms;
+  .glass-door-right {
+    background: linear-gradient(270deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.7) 100%);
   }
 }
 
@@ -566,7 +518,7 @@
     display: none !important;
   }
   
-  .hero-reduced-motion .glass-pane {
+  .hero-reduced-motion .glass-door {
     display: none !important;
   }
   
