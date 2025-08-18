@@ -3,13 +3,15 @@ import { useEffect, useRef, useState } from 'react';
 import heroImage from "@assets/IMG_6076_1755522864402.png";
 
 export default function Hero() {
-  const [hasAnimated, setHasAnimated] = useState(false);
-  const [copyRevealed, setCopyRevealed] = useState(false);
-  const [glassPanesAnimated, setGlassPanesAnimated] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [kenBurnsProgress, setKenBurnsProgress] = useState(0);
+  const [glassPaneProgress, setGlassPaneProgress] = useState(0);
+  const [wordVisibility, setWordVisibility] = useState<number[]>([0, 0, 0, 0, 0]);
+  const [subtextVisible, setSubtextVisible] = useState(0);
+  const [ctasVisible, setCtasVisible] = useState(0);
+  const [specularTriggered, setSpecularTriggered] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
     // Check for reduced motion preference
@@ -27,53 +29,62 @@ export default function Hero() {
     };
   }, []);
 
-  // Intersection Observer for trigger
-  useEffect(() => {
-    if (!sectionRef.current || hasAnimated) return;
-
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
-        if (entry.isIntersecting && !hasAnimated) {
-          setHasAnimated(true);
-          
-          if (prefersReducedMotion) {
-            // Skip animations, show everything immediately
-            setCopyRevealed(true);
-            setGlassPanesAnimated(true);
-          } else {
-            // Start glass panes animation immediately
-            setGlassPanesAnimated(true);
-            // Start copy reveal after 900ms
-            setTimeout(() => setCopyRevealed(true), 900);
-          }
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observerRef.current.observe(sectionRef.current);
-
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, [hasAnimated, prefersReducedMotion]);
-
-  // Scroll progress tracking for pinning
+  // Scroll-driven animation tracking
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
-      const maxScroll = windowHeight * 0.65; // Pin for 65vh
-      const progress = Math.min(scrollY / maxScroll, 1);
-      setScrollProgress(progress);
+      
+      // Hero pinning - pin until 60vh of scroll
+      const maxPinScroll = windowHeight * 0.6;
+      const pinProgress = Math.min(scrollY / maxPinScroll, 1);
+      setScrollProgress(pinProgress);
+      
+      if (prefersReducedMotion) {
+        // Simple fade for reduced motion
+        setKenBurnsProgress(Math.min(scrollY / (windowHeight * 0.4), 1));
+        setWordVisibility([1, 1, 1, 1, 1]);
+        setSubtextVisible(1);
+        setCtasVisible(1);
+        return;
+      }
+      
+      // Ken Burns progress (0 → 40vh)
+      const kenBurnsMax = windowHeight * 0.4;
+      setKenBurnsProgress(Math.min(scrollY / kenBurnsMax, 1));
+      
+      // Glass pane progress (0 → 60vh)
+      const glassPaneMax = windowHeight * 0.6;
+      setGlassPaneProgress(Math.min(scrollY / glassPaneMax, 1));
+      
+      // Word visibility (staggered from 10vh to 40vh)
+      const words = [
+        Math.min(Math.max((scrollY - windowHeight * 0.1) / (windowHeight * 0.05), 0), 1), // 10vh
+        Math.min(Math.max((scrollY - windowHeight * 0.15) / (windowHeight * 0.05), 0), 1), // 15vh
+        Math.min(Math.max((scrollY - windowHeight * 0.2) / (windowHeight * 0.05), 0), 1), // 20vh
+        Math.min(Math.max((scrollY - windowHeight * 0.25) / (windowHeight * 0.05), 0), 1), // 25vh
+        Math.min(Math.max((scrollY - windowHeight * 0.3) / (windowHeight * 0.05), 0), 1), // 30vh
+      ];
+      setWordVisibility(words);
+      
+      // Subtext at 40vh
+      const subtextStart = windowHeight * 0.4;
+      setSubtextVisible(Math.min(Math.max((scrollY - subtextStart) / (windowHeight * 0.05), 0), 1));
+      
+      // CTAs at 50vh
+      const ctasStart = windowHeight * 0.5;
+      setCtasVisible(Math.min(Math.max((scrollY - ctasStart) / (windowHeight * 0.05), 0), 1));
+      
+      // Trigger specular sweep when last word appears
+      if (words[4] >= 0.8 && !specularTriggered) {
+        setSpecularTriggered(true);
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial call
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [prefersReducedMotion, specularTriggered]);
 
   const isPinned = scrollProgress < 1;
 
@@ -84,34 +95,46 @@ export default function Hero() {
         isPinned ? 'fixed top-0 left-0 z-10' : ''
       } ${prefersReducedMotion ? 'hero-reduced-motion' : ''}`}
     >
-      {/* Cinematic Ken Burns Background */}
+      {/* Scroll-Driven Ken Burns Background */}
       <div 
-        className={`absolute inset-0 bg-cover bg-center bg-no-repeat ${
-          hasAnimated && !prefersReducedMotion ? 'ken-burns-active' : 'ken-burns-static'
-        }`}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat scroll-ken-burns"
         style={{ 
           backgroundImage: `url(${heroImage})`,
           backgroundPosition: 'center center',
-          backgroundSize: 'cover'
+          backgroundSize: 'cover',
+          transform: `scale(${0.98 + (kenBurnsProgress * 0.02)}) translateX(${kenBurnsProgress * 3}%)`,
+          transition: prefersReducedMotion ? 'opacity 800ms ease-out' : 'none'
         }}
       />
 
-      {/* Glass Pane Reflection Overlay */}
+      {/* Scroll-Driven Glass Pane Overlay */}
       {!prefersReducedMotion && (
         <>
           {/* Glass Pane 1 */}
           <div 
-            className={`glass-pane glass-pane-1 ${glassPanesAnimated ? 'animated' : ''}`}
+            className="glass-pane glass-pane-1 scroll-driven"
+            style={{
+              transform: `perspective(2500px) rotateY(-6deg) rotateX(1deg) translateX(${glassPaneProgress * -38}vw)`,
+              opacity: Math.max(1 - glassPaneProgress * 1.5, 0)
+            }}
           />
           
           {/* Glass Pane 2 */}
           <div 
-            className={`glass-pane glass-pane-2 ${glassPanesAnimated ? 'animated' : ''}`}
+            className="glass-pane glass-pane-2 scroll-driven"
+            style={{
+              transform: `perspective(2500px) rotateY(7deg) rotateX(-0.5deg) translateX(${glassPaneProgress * 35}vw)`,
+              opacity: Math.max(1 - (glassPaneProgress - 0.1) * 1.5, 0)
+            }}
           />
           
           {/* Glass Pane 3 */}
           <div 
-            className={`glass-pane glass-pane-3 ${glassPanesAnimated ? 'animated' : ''}`}
+            className="glass-pane glass-pane-3 scroll-driven"
+            style={{
+              transform: `perspective(2500px) rotateY(-5deg) rotateX(2deg) translateX(${glassPaneProgress * -32}vw)`,
+              opacity: Math.max(1 - (glassPaneProgress - 0.15) * 1.5, 0)
+            }}
           />
         </>
       )}
@@ -121,47 +144,83 @@ export default function Hero() {
         <div className="max-w-[1120px] mx-auto px-6 md:px-8 w-full">
           <div className="max-w-2xl space-y-8 lg:space-y-12">
             
-            {/* Main Headline with Kinetic Reveal */}
-            <div className={`space-y-8 ${copyRevealed ? 'copy-revealed' : 'copy-hidden'}`}>
+            {/* Scroll-Revealed Headline */}
+            <div className="space-y-8">
               <div className="relative">
                 <h1 className="font-playfair text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tighter leading-tight text-white drop-shadow-lg">
-                  <span className="kinetic-word-cinema" style={{ animationDelay: '0ms' }}>
+                  <span 
+                    className="scroll-word-reveal"
+                    style={{ 
+                      opacity: wordVisibility[0],
+                      transform: `translateY(${(1 - wordVisibility[0]) * 16}px)`
+                    }}
+                  >
                     Built-in
                   </span>{' '}
-                  <span className="kinetic-word-cinema" style={{ animationDelay: '60ms' }}>
+                  <span 
+                    className="scroll-word-reveal"
+                    style={{ 
+                      opacity: wordVisibility[1],
+                      transform: `translateY(${(1 - wordVisibility[1]) * 16}px)`
+                    }}
+                  >
                     Luxury
                   </span>
                   <br />
-                  <span className="kinetic-word-cinema" style={{ animationDelay: '120ms' }}>
+                  <span 
+                    className="scroll-word-reveal"
+                    style={{ 
+                      opacity: wordVisibility[2],
+                      transform: `translateY(${(1 - wordVisibility[2]) * 16}px)`
+                    }}
+                  >
                     Shoe
                   </span>{' '}
-                  <span className="kinetic-word-cinema" style={{ animationDelay: '180ms' }}>
+                  <span 
+                    className="scroll-word-reveal"
+                    style={{ 
+                      opacity: wordVisibility[3],
+                      transform: `translateY(${(1 - wordVisibility[3]) * 16}px)`
+                    }}
+                  >
                     Care
                   </span>{' '}
-                  <span className="kinetic-word-cinema" style={{ animationDelay: '240ms' }}>
+                  <span 
+                    className="scroll-word-reveal"
+                    style={{ 
+                      opacity: wordVisibility[4],
+                      transform: `translateY(${(1 - wordVisibility[4]) * 16}px)`
+                    }}
+                  >
                     System
                   </span>
                 </h1>
                 
                 {/* Specular Sweep */}
-                {copyRevealed && !prefersReducedMotion && (
+                {specularTriggered && !prefersReducedMotion && (
                   <div className="specular-sweep-horizontal absolute top-0 left-0 w-full h-full pointer-events-none" />
                 )}
               </div>
               
-              {/* Editorial Subtext */}
+              {/* Scroll-Revealed Subtext */}
               <p 
-                className="text-gray-200 text-xl lg:text-2xl leading-relaxed font-light max-w-lg drop-shadow-md kinetic-text-cinema"
-                style={{ animationDelay: '360ms' }}
+                className="text-gray-200 text-xl lg:text-2xl leading-relaxed font-light max-w-lg drop-shadow-md scroll-text-reveal"
+                style={{ 
+                  opacity: subtextVisible,
+                  transform: `translateY(${(1 - subtextVisible) * 14}px)`
+                }}
               >
                 Museum-quality display meets AI-powered maintenance for the modern luxury home.
               </p>
             </div>
             
-            {/* Call-to-Action Buttons */}
+            {/* Scroll-Revealed CTAs */}
             <div 
-              className={`flex flex-col sm:flex-row gap-6 kinetic-buttons-cinema ${copyRevealed ? 'revealed' : ''}`}
-              style={{ animationDelay: '480ms' }}
+              className="flex flex-col sm:flex-row gap-6 scroll-ctas-reveal"
+              style={{ 
+                opacity: ctasVisible,
+                transform: `translateY(${(1 - ctasVisible) * 12}px)`
+              }}
             >
               <Button 
                 size="lg" 

@@ -1,0 +1,77 @@
+HOME HERO — SCROLL-DRIVEN LUXURY REVEAL (B/W ONLY)
+
+Scope
+
+Apply to the Home hero (first fold) only.
+
+Strictly monochrome: black, white, gray only. No color, no glow, no gradients.
+
+1) Cinematic Ken Burns Base
+
+Background = IMG_6076 full-bleed (100vw × 100vh).
+
+Apply a slow Ken Burns (scale 0.98 → 1.00, pan ≤3%) that progresses with scroll (0 → 40vh) instead of time.
+
+If scroll stops, Ken Burns stops in place. Smooth, no jumps.
+
+2) Scroll-Driven Glass Pane Reveal
+
+Overlay 2–3 semi-transparent white glass panels (20–25% opacity).
+
+Panels begin fully covering at scrollY=0.
+
+From 0 → 60vh, panels slide outward (x ±30–40%, staggered).
+
+At 60vh, panels are fully gone → hero image revealed.
+
+Optional subtle tilt (3–5°) for realism.
+
+3) Scroll-Revealed Copy
+
+Headline text split into words: “Built-in / Luxury / Shoe / Care / System”.
+
+Each word fades+slides upward (12–16px) tied to scroll:
+
+Word 1 visible at ~10vh, Word 2 at ~20vh, etc.
+
+All visible by 40vh.
+
+Subtext appears after headline completes (~50vh).
+
+CTAs fade in at ~60vh, after panes are gone.
+
+Headline gets 1 specular sweep triggered once when last word appears (~40vh). Thin white line (1–2px) across text in 400ms.
+
+4) Hand-off to Next Section
+
+Hero stage height = 100vh, pinned until 60vh scroll completes.
+
+After that, panels gone + copy visible, allow normal scroll.
+
+Divider line (1px black/white) separates hero from Innovation section.
+
+5) Responsiveness
+
+Desktop: full-bleed hero with left-aligned text.
+
+Tablet/Mobile: reduce pane distance (x ±20%), Ken Burns scale 0.985 → 1.00.
+
+Copy reveals in larger chunks (e.g., 2 words at once) on smaller screens.
+
+6) Accessibility & Performance
+
+If prefers-reduced-motion: Skip scroll ties → use simple fade of IMG_6076 + fade-in text.
+
+Clamp FPS; if frame drops, disable tilt/parallax first.
+
+All animations play once; no loops.
+
+Acceptance Criteria
+
+As user scrolls, it feels like they’re physically sliding open glass showcase panels.
+
+Headline reveals word by word, like discovering a luxury product spec sheet.
+
+Once open, hero rests calmly: full image revealed, crisp text in place, premium editorial look.
+
+Experience is interactive, cinematic, and high-end — exactly CES “wow” factor.

@@ -271,6 +271,36 @@
   background-color: #000000;
 }
 
+/* ===== SCROLL-DRIVEN LUXURY REVEAL - BLACK & WHITE ONLY ===== */
+
+/* Scroll-Driven Ken Burns */
+.scroll-ken-burns {
+  will-change: transform;
+  contain: layout style paint;
+}
+
+/* Scroll-Driven Glass Panes */
+.glass-pane.scroll-driven {
+  transition: none !important;
+  will-change: transform, opacity;
+}
+
+/* Scroll-Revealed Text */
+.scroll-word-reveal,
+.scroll-text-reveal,
+.scroll-ctas-reveal {
+  display: inline-block;
+  transition: all 150ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform, opacity;
+}
+
+/* Mobile Responsive Scroll Adjustments */
+@media (max-width: 768px) {
+  .glass-pane.scroll-driven {
+    transform: perspective(2000px) rotateY(0deg) rotateX(0deg) !important;
+  }
+}
+
 /* ===== LUXURY CINEMATIC GLASS REVEAL - BLACK & WHITE ONLY ===== */
 
 /* Glass Pane Reflection Overlay */
@@ -538,6 +568,10 @@
   
   .hero-reduced-motion .glass-pane {
     display: none !important;
+  }
+  
+  .hero-reduced-motion .scroll-ken-burns {
+    transform: none !important;
   }
 }
 
