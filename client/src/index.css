@@ -271,42 +271,50 @@
   background-color: #000000;
 }
 
-/* ===== LUXURY ANIMATION BUNDLE - BLACK & WHITE ONLY ===== */
+/* ===== FULL-BLEED DOOR TAKEOVER - BLACK & WHITE ONLY ===== */
 
-/* Raster Scan Effect */
-@keyframes rasterScan {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(100vh);
-  }
+/* Viewport Door Animation */
+.door-viewport-left,
+.door-viewport-right {
+  transition: transform 1400ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 800ms ease-out;
+  will-change: transform;
 }
 
-.raster-scan {
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(255, 255, 255, 0.1) 48%,
-    rgba(255, 255, 255, 0.2) 50%,
-    rgba(255, 255, 255, 0.1) 52%,
-    transparent 100%
-  );
-  height: 4px;
-  animation: rasterScan 800ms ease-out forwards;
+/* Copy Overlay System */
+.copy-overlay-hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* Kinetic Headline Animation */
-@keyframes kineticReveal {
+.copy-overlay-visible {
+  opacity: 1;
+  pointer-events: auto;
+  animation: copyFadeIn 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes copyFadeIn {
   0% {
     opacity: 0;
-    transform: translateY(16px);
-    filter: blur(1px);
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Kinetic Word Animation for Overlay */
+@keyframes kineticWordOverlay {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(0.8px);
   }
   60% {
-    opacity: 0.7;
-    transform: translateY(-2px);
-    filter: blur(0.5px);
+    opacity: 0.8;
+    transform: translateY(-1px);
+    filter: blur(0.3px);
   }
   100% {
     opacity: 1;
@@ -315,96 +323,85 @@
   }
 }
 
-.kinetic-word {
+.kinetic-word-overlay {
+  display: inline-block;
   opacity: 0;
-  transform: translateY(16px);
-  filter: blur(1px);
+  transform: translateY(14px);
+  filter: blur(0.8px);
+  animation: kineticWordOverlay 180ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-.kinetic-word.animate {
-  animation: kineticReveal 180ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-.kinetic-text {
+/* Copy Kinetic Animation */
+.copy-kinetic {
   opacity: 0;
   transform: translateY(12px);
+  animation: kineticWordOverlay 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-.kinetic-text.animate {
-  animation: kineticReveal 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+/* Hover Lighting Effect */
+.copy-kinetic.pointer-active {
+  transition: all 200ms ease-out;
+  filter: contrast(1.05) brightness(1.02);
 }
 
-.kinetic-buttons {
-  opacity: 0;
-  transform: translateY(8px);
+.copy-kinetic.pointer-active h1,
+.copy-kinetic.pointer-active p {
+  transition: all 200ms ease-out;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
-.kinetic-buttons.animate {
-  animation: kineticReveal 150ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-/* Door Opening Effects */
-.door-container {
-  perspective: 1000px;
-  transform-style: preserve-3d;
-}
-
-.door-left,
-.door-right {
-  transition: transform 1200ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              box-shadow 600ms ease-out;
-  backface-visibility: hidden;
-}
-
-/* Dolly-In Illusion */
-@keyframes dollyIn {
-  0% {
-    transform: scale(0.98);
-    filter: contrast(1);
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  .door-viewport-left {
+    transform-origin: left center;
   }
-  50% {
-    filter: contrast(1.05);
+  
+  .door-viewport-right {
+    transform-origin: right center;
   }
-  100% {
-    transform: scale(1.00);
-    filter: contrast(1);
+  
+  .copy-overlay-visible {
+    padding: 0 1rem;
   }
-}
-
-.product-dolly {
-  transform: scale(0.98);
-  filter: contrast(1);
-}
-
-.product-dolly.animate {
-  animation: dollyIn 1200ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  animation-delay: 800ms;
-}
-
-/* Specular Sweep */
-.specular-sweep {
-  transition: all 450ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  pointer-events: none;
+  
+  .kinetic-word-overlay {
+    animation-duration: 120ms;
+  }
 }
 
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
-  .hero-reduced-motion .kinetic-word,
-  .hero-reduced-motion .kinetic-text,
-  .hero-reduced-motion .kinetic-buttons,
-  .hero-reduced-motion .product-dolly {
+  .hero-reduced-motion .door-viewport-left,
+  .hero-reduced-motion .door-viewport-right {
+    display: none !important;
+  }
+  
+  .hero-reduced-motion .copy-overlay-visible {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+  
+  .hero-reduced-motion .kinetic-word-overlay,
+  .hero-reduced-motion .copy-kinetic {
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
     animation: none !important;
   }
   
-  .hero-reduced-motion .raster-scan {
-    display: none;
+  .hero-reduced-motion .copy-kinetic.pointer-active {
+    filter: none !important;
+    text-shadow: none !important;
   }
-  
-  .hero-reduced-motion .door-left,
-  .hero-reduced-motion .door-right {
-    display: none;
-  }
+}
+
+/* Performance Optimizations */
+.door-viewport-left,
+.door-viewport-right {
+  contain: layout style paint;
+  will-change: transform;
+}
+
+.copy-overlay-visible {
+  contain: layout style;
 }
