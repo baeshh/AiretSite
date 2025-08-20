@@ -30,6 +30,12 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
+          exclude: |
+            node_modules/**
+            server/**
+            shared/**
+            client/**
+            package-lock.json
 
       - name: Deploy to GitHub Pages
         id: deployment
