@@ -1,0 +1,19 @@
+# Cloudflare Pages configuration for AIRET
+name = "airet"
+compatibility_date = "2024-01-15"
+
+[build]
+command = "npm run build:static"
+publish = "dist/public"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
+
+[env.production]
+# Add any environment variables here
+# DATABASE_URL = ""
+
+[env.preview]
+# Preview environment variables

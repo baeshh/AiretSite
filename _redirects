@@ -1,0 +1,13 @@
+# Cloudflare Pages redirects for SPA routing
+# Handle all routes through React Router (Wouter)
+/*    /index.html   200
+
+# Optional: Redirect www to non-www
+https://www.airet.io/*  https://airet.io/:splat  301!
+
+# Security headers
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
