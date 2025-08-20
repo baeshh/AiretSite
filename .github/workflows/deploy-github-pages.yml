@@ -38,17 +38,37 @@ jobs:
         env:
           NODE_ENV: production
 
-      - name: Fix asset paths for GitHub Pages
+      - name: Configure GitHub Pages deployment
         run: |
-          # Fix asset paths to use relative paths
-          sed -i 's|src="/assets/|src="./assets/|g' dist/public/index.html
-          sed -i 's|href="/assets/|href="./assets/|g' dist/public/index.html
+          # Fix asset paths to use GitHub Pages base path
+          sed -i 's|src="/assets/|src="/airetsite/assets/|g' dist/public/index.html
+          sed -i 's|href="/assets/|href="/airetsite/assets/|g' dist/public/index.html
           
-          # Create 404.html for SPA routing
-          cp dist/public/index.html dist/public/404.html
+          # Create 404.html for SPA routing with GitHub Pages configuration
+          cat > dist/public/404.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta charset="utf-8">
+              <title>AIRET - Built-in Luxury Shoe Care System</title>
+              <script type="text/javascript">
+                var pathSegmentsToKeep = 1;
+                var l = window.location;
+                l.replace(
+                  l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+                  l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+                  l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+                  (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+                  l.hash
+                );
+              </script>
+            </head>
+            <body></body>
+          </html>
+          EOF
           
-          # Add SPA routing script to 404.html
-          sed -i '/<\/body>/i\    <script>\n      (function() {\n        var redirect = sessionStorage.redirect;\n        delete sessionStorage.redirect;\n        if (redirect && redirect != location.href) {\n          history.replaceState(null, null, redirect);\n        }\n      })();\n    </script>' dist/public/404.html
+          # Add SPA routing handler to index.html
+          sed -i '/<\/body>/i\    <script type="text/javascript">\n      (function(l) {\n        if (l.search[1] === "/" ) {\n          var decoded = l.search.slice(1).split("&").map(function(s) { \n            return s.replace(/~and~/g, "&")\n          }).join("?");\n          window.history.replaceState(null, null,\n              l.pathname.slice(0, -1) + decoded + l.hash\n          );\n        }\n      }(window.location))\n    </script>' dist/public/index.html
 
       - name: List build output for debugging
         run: |
