@@ -38,15 +38,24 @@ jobs:
         env:
           NODE_ENV: production
 
-      - name: Create 404 page for SPA routing
-        run: cp dist/public/index.html dist/public/404.html
+      - name: Fix asset paths for GitHub Pages
+        run: |
+          # Fix asset paths to use relative paths
+          sed -i 's|src="/assets/|src="./assets/|g' dist/public/index.html
+          sed -i 's|href="/assets/|href="./assets/|g' dist/public/index.html
+          
+          # Create 404.html for SPA routing
+          cp dist/public/index.html dist/public/404.html
+          
+          # Add SPA routing script to 404.html
+          sed -i '/<\/body>/i\    <script>\n      (function() {\n        var redirect = sessionStorage.redirect;\n        delete sessionStorage.redirect;\n        if (redirect && redirect != location.href) {\n          history.replaceState(null, null, redirect);\n        }\n      })();\n    </script>' dist/public/404.html
 
       - name: List build output for debugging
         run: |
           echo "=== Build output structure ==="
           ls -la dist/public/
-          echo "=== Checking index.html ==="
-          head -10 dist/public/index.html
+          echo "=== Checking index.html paths ==="
+          grep -E "(src=|href=)" dist/public/index.html | head -5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
