@@ -180,10 +180,10 @@ export default function Hero() {
               
               {/* Editorial Subtext */}
               <p 
-                className={`text-gray-400 text-lg leading-relaxed font-light max-w-lg ces-subtext ${
+                className={`text-white text-lg leading-relaxed font-light max-w-lg ces-subtext ${
                   subtextVisible > 0 ? 'revealed' : ''
                 }`}
-                style={{ fontSize: '17px', color: '#6B7280' }}
+                style={{ fontSize: '17px' }}
               >
                 Museum-quality display meets AI-powered maintenance for the modern luxury home.
               </p>
