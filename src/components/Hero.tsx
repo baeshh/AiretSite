@@ -24,9 +24,8 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto px-6 py-20">
         <div className="max-w-2xl pl-8">
           <h1 className="playfair text-4xl md:text-5xl font-bold text-white mb-6 leading-tight text-left">
-            Luxury Built-in
-            <br />
-            <span className="text-white">Shoe Care System</span>
+            <div className="mb-2">Luxury Built-in</div>
+            <div>Shoe Care System</div>
           </h1>
           
           <p className="text-white text-lg leading-relaxed font-light max-w-lg mb-8 text-left">
